@@ -37,6 +37,7 @@ trait Main {
         foreach($explode as $line){
             $line = trim($line);
             if(str_contains($line, $command)){
+                d($command);
                 $temp = explode(' ', $line);
                 foreach($temp as $key => $value){
                     if(empty($value)){
