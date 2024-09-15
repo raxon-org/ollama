@@ -38,6 +38,33 @@ trait Main {
                     }
                     elseif(!$pid){
                         $pid = $value;
+                    }
+                    elseif($cpu){
+                        $cpu = $value;
+                    }
+                    elseif($mem){
+                        $mem = $value;
+                    }
+                    elseif($vsz){
+                        $vsz = $value;
+                    }
+                    elseif($rss){
+                        $rss = $value;
+                    }
+                    elseif($tty){
+                        $tty = $value;
+                    }
+                    elseif($stat){
+                        $stat = $value;
+                    }
+                    elseif($start){
+                        $start = $value;
+                    }
+                    elseif($time){
+                        $time = $value;
+                    }
+                    elseif($command){
+                        $command = $value;
                         break 2;
                     }
 
@@ -46,7 +73,8 @@ trait Main {
         }
         return [
             'pid' => $pid,
-            'user' => $user
+            'user' => $user,
+            'command' => $command,
         ];
     }
 
