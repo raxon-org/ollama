@@ -1,0 +1,17 @@
+{
+    "name" : "raxon/ollama",
+    "description" : "raxon/ollama see https://raxon.org for detailed usage",
+    "type" : "package",
+    "keywords" : ["ollama", "llm", "ai","raxon", "org", "library", "framework", "parse", "raxon.org"],
+    "homepage": "https://raxon.org",
+    "require" : {
+        "raxon/framework": "*",
+        "ext-zlib": "*"
+    },
+    "minimum-stability": "dev",
+    "license" : "MIT",
+    "authors" : [{
+        "name" : "Remco van der Velde",
+        "email" : "development@universeorange.com"
+    }]
+}

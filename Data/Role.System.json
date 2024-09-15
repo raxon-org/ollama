@@ -1,0 +1,83 @@
+{
+  "name" : "ROLE_SYSTEM",
+  "rank" : 1,
+  "#class": "Account.Role",
+  "permission": [
+    {
+      "name": "RaXon:Ollama:record",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:record.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:create",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:count",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:count.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:commit",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:delete.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:read",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:read.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:put",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:patch",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:page",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:page.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:property.delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:list",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:list.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:rename",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "RaXon:Ollama:import",
+      "#class": "Account.Permission"
+    }
+  ]
+}

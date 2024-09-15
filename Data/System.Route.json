@@ -1,0 +1,19 @@
+{
+  "System": {
+    "Route": [
+      {
+        "#class": "System.Route",
+        "name": "raxon-org-cli-ollama",
+        "path": "raxon\/ollama",
+        "controller": "Package.Raxon.Ollama.Controller.Cli.run",
+        "request": {
+          "language": "en"
+        },
+        "method": [
+          "CLI"
+        ],
+        "priority": 2001
+      }
+    ]
+  }
+}
