@@ -1,5 +1,5 @@
 <?php
-namespace Package\Raxon\Parse\Trait;
+namespace Package\Raxon\Ollama\Trait;
 
 use Raxon\App;
 
