@@ -45,6 +45,11 @@ trait Main {
                 }
             }
         }
+        if($pid === null){
+            //check retry strategy.
+            $command = 'ollama serve &';
+            exec($command, $output);
+        }
         d($pid);
         d($user);
         d($output);
