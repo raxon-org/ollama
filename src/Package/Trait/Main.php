@@ -81,7 +81,7 @@ trait Main {
         }
         if($info['pid'] === null){
             //check retry strategy.
-            $info = $this->info('app raxon//ollama guard');
+            $info = $this->info('app raxon/ollama guard');
             if($info['pid'] !== null){
                 $command = 'kill  ' . escapeshellcmd($info['pid']);
                 exec($command, $output);
