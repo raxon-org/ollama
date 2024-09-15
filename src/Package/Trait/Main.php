@@ -98,6 +98,7 @@ trait Main {
             //check retry strategy.
             $command = 'kill  ' . escapeshellcmd($info['pid']);
             exec($command, $output);
+            echo implode(PHP_EOL, $output);
         }
     }
 }
