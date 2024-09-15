@@ -15,11 +15,11 @@ trait Main {
 
     public function info(string $command = ''){
         $object = $this->object();
-        $command = 'ps -aux';
+        $ps_command = 'ps -aux';
         $default = $object->config('core.execute.stream.is.default');
         $object->config('core.execute.mode', 'stream');
         $object->config('core.execute.stream.is.default', false);
-        Core::execute($object, $command, $output, $notification);
+        Core::execute($object, $ps_command, $output, $notification);
         $object->config('core.execute.stream.is.default', $default);
         //we should have result in the output
         $explode = explode("\n", $output);
