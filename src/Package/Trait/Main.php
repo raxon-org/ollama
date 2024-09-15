@@ -25,6 +25,15 @@ trait Main {
         $explode = explode("\n", $output);
         $user = null;
         $pid =null;
+        $cpu = null;
+        $mem = null;
+        $vsz = null;
+        $rss = null;
+        $tty = null;
+        $stat = null;
+        $start = null;
+        $time = null;
+        $command = null;
         foreach($explode as $line){
             $line = trim($line);
             if(str_contains($line, $command)){
