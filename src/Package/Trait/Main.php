@@ -16,7 +16,7 @@ trait Main {
      */
     public function serve($flags, $options): mixed {
         $object = $this->object();
-        $command = 'ps -aux | grep ollama';
+        $command = 'ps -aux';
         $default = $object->config('core.execute.stream.is.default');
         $object->config('core.execute.mode', 'stream');
         $object->config('core.execute.stream.is.default', false);
