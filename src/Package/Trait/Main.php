@@ -81,6 +81,11 @@ trait Main {
         }
         if($info['pid'] === null){
             //check retry strategy.
+            $info = $this->info('app raxon//ollama guard');
+            if($info['pid'] !== null){
+                $command = 'kill  ' . escapeshellcmd($info['pid']);
+                exec($command, $output);
+            }
             $command = 'app raxon/ollama guard &';
             Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
             echo $output;
