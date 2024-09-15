@@ -13,7 +13,7 @@ trait Main {
 
 
 
-    public function info(){
+    public function info($command = ''){
         $object = $this->object();
         $command = 'ps -aux';
         $default = $object->config('core.execute.stream.is.default');
@@ -27,7 +27,7 @@ trait Main {
         $pid =null;
         foreach($explode as $line){
             $line = trim($line);
-            if(str_contains($line, 'ollama serve')){
+            if(str_contains($line, $command)){
                 $temp = explode(' ', $line);
                 foreach($temp as $key => $value){
                     if(empty($value)){
@@ -54,17 +54,18 @@ trait Main {
      * @throws Exception
      */
     public function guard($flags, $options): void {
+        $object = $this->object();
         echo 'Starting guarding ollama serve...' . PHP_EOL;
         while(true){
-            $info = $this->info();
+            $info = $this->info('ollama serve');
             if($info['pid'] === null){
                 //check retry strategy.
                 $command = 'ollama serve &';
-                exec($command, $output);
+                Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
+                echo $output;
             }
             sleep(1);
         }
-
     }
 
 
@@ -72,7 +73,8 @@ trait Main {
      * @throws Exception
      */
     public function start($flags, $options): void {
-        $info = $this->info();
+        $object = $this->object();
+        $info = $this->info('ollama serve');
         if($info['pid'] !== null){
             echo 'Ollama serve already running...' . PHP_EOL;
             return;
@@ -80,8 +82,8 @@ trait Main {
         if($info['pid'] === null){
             //check retry strategy.
             $command = 'app raxon/ollama guard &';
-            exec($command, $output);
-            echo implode(PHP_EOL, $output);
+            Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
+            echo $output;
         }
     }
 
