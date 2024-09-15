@@ -33,7 +33,7 @@ trait Main {
         $stat = null;
         $start = null;
         $time = null;
-        $command = null;
+        $execute = null;
         foreach($explode as $line){
             $line = trim($line);
             if(str_contains($line, $command)){
@@ -72,8 +72,8 @@ trait Main {
                     elseif($time){
                         $time = $value;
                     }
-                    elseif($command){
-                        $command = $value;
+                    elseif($execute){
+                        $execute = $value;
                         break 2;
                     }
 
@@ -83,7 +83,7 @@ trait Main {
         return [
             'pid' => $pid,
             'user' => $user,
-            'command' => $command,
+            'command' => $execute,
         ];
     }
 
