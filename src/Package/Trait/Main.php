@@ -13,7 +13,7 @@ trait Main {
 
 
 
-    public function info($command = ''){
+    public function info(string $command = ''){
         $object = $this->object();
         $command = 'ps -aux';
         $default = $object->config('core.execute.stream.is.default');
