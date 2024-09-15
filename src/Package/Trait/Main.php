@@ -88,7 +88,7 @@ trait Main {
     }
 
     public function stop($flags, $options): void {
-        $info = $this->info();
+        $info = $this->info('ollama serve');
         if($info['pid'] !== null){
             //check retry strategy.
             $command = 'kill  ' . escapeshellcmd($info['pid']);
