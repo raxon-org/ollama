@@ -22,6 +22,31 @@ trait Main {
         $object->config('core.execute.stream.is.default', false);
         Core::execute($object, $command, $output, $notification);
         $object->config('core.execute.stream.is.default', $default);
+        //we should have result in the output
+        $explode = explode("\n", $output);
+        $user = null;
+        $pid =null;
+        foreach($explode as $line){
+            $line = trim($line);
+            if(str_contains($line, 'ollama serve')){
+                $temp = explode(' ', $line);
+                foreach($temp as $key => $value){
+                    if(empty($value)){
+                        continue;
+                    }
+                    if(!$user){
+                        $user = $value;
+                    }
+                    elseif(!$pid){
+                        $pid = $value;
+                        break 2;
+                    }
+
+                }
+            }
+        }
+        d($pid);
+        d($user);
         d($output);
         d($notification);
         return null;
