@@ -11,10 +11,9 @@ use Exception;
 
 trait Main {
 
-    /**
-     * @throws Exception
-     */
-    public function serve($flags, $options): mixed {
+
+
+    public function info(){
         $object = $this->object();
         $command = 'ps -aux';
         $default = $object->config('core.execute.stream.is.default');
@@ -45,15 +44,53 @@ trait Main {
                 }
             }
         }
-        if($pid === null){
+        return [
+            'pid' => $pid,
+            'user' => $user
+        ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function guard($flags, $options): void {
+        echo 'Starting guarding ollama serve...' . PHP_EOL;
+        while(true){
+            $info = $this->info();
+            if($info['pid'] === null){
+                //check retry strategy.
+                $command = 'ollama serve &';
+                exec($command, $output);
+            }
+            sleep(1);
+        }
+
+    }
+
+
+    /**
+     * @throws Exception
+     */
+    public function start($flags, $options): void {
+        $info = $this->info();
+        if($info['pid'] !== null){
+            echo 'Ollama serve already running...' . PHP_EOL;
+            return;
+        }
+        if($info['pid'] === null){
             //check retry strategy.
-            $command = 'ollama serve &';
+            $command = 'app raxon/ollama guard &';
+            exec($command, $output);
+            echo implode(PHP_EOL, $output);
+        }
+    }
+
+    public function stop($flags, $options): void {
+        $info = $this->info();
+        if($info['pid'] !== null){
+            //check retry strategy.
+            $command = 'kill  ' . escapeshellcmd($info['pid']);
             exec($command, $output);
         }
-        d($pid);
-        d($user);
-        d($output);
-        d($notification);
-        return null;
     }
 }
