@@ -140,4 +140,8 @@ trait Main {
             echo implode(PHP_EOL, $output);
         }
     }
+
+    public function generate($flags, $options): void {
+        ddd($options);
+    }
 }
