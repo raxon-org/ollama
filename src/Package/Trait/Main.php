@@ -142,7 +142,39 @@ trait Main {
 
     public function generate($flags, $options): void {
         if(property_exists($options, 'url')){
-            File::write($options->url, Core::object($options, Core::OBJECT_JSON));
+            $data = clone $options;
+            unset($data->url);
+            $data = Core::object($options, Core::OBJECT_JSON);
+            File::write($options->url, $data);
+            Core::interactive();
+            $ch = curl_init();
+            // Set the URL of the localhost stream
+            curl_setopt($ch, CURLOPT_URL, "http://localhost:11434/api/generate");
+            // Set the POST method
+            curl_setopt($ch, CURLOPT_POST, true);
+            // Set the POST fields
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            // Disable CURLOPT_RETURNTRANSFER to output directly
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+            // Set option to receive data in chunks
+            $result = [];
+            curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
+                $command = $chunk . ' >> ' . $options->url;
+                exec($command);
+                // Output each chunk as it comes in
+                echo $chunk;
+                // Optionally flush the output buffer to ensure it's displayed immediately
+                flush();
+                // Return the number of bytes processed in this chunk
+                return strlen($chunk);
+            });
+            curl_exec($ch);
+            // Check for errors
+            if (curl_errno($ch)) {
+                echo 'Curl error: ' . curl_error($ch);
+            }
+            // Close the cURL session
+            curl_close($ch);
         }
     }
 }
