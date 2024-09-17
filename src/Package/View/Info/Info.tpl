@@ -4,5 +4,7 @@ Package: {{$request.package}}
 
 Module: {{$request.module|uppercase.first}}
 
-serve
+start
+stop
+guard
 setup
