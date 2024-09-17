@@ -93,6 +93,7 @@ trait Main {
      */
     public function guard($flags, $options): void {
         $object = $this->object();
+
         echo 'Starting guarding ollama serve...' . PHP_EOL;
         while(true){
             $info = $this->info('ollama serve');
