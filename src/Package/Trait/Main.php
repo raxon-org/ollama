@@ -5,13 +5,12 @@ use Raxon\App;
 use Raxon\Config;
 
 use Raxon\Module\Core;
+use Raxon\Module\File;
 
 use Exception;
 
 
 trait Main {
-
-
 
     public function info(string $command = ''){
         $object = $this->object();
@@ -142,6 +141,8 @@ trait Main {
     }
 
     public function generate($flags, $options): void {
-        ddd($options);
+        if(property_exists($options, 'url')){
+            File::write($options->url, Core::object($options, Core::OBJECT_JSON));
+        }
     }
 }
