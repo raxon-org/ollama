@@ -20,6 +20,23 @@
                                     "dynamic": true
                                 }
                             }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
                         }
                     ]
                 },
@@ -27,6 +44,23 @@
                     "output": [
                         {
                             "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
                             "property": [
                                 "uuid",
                                 "model",
@@ -62,6 +96,23 @@
                                     "dynamic": true
                                 }
                             }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
                         }
                     ]
                 },
@@ -69,6 +120,23 @@
                     "output": [
                         {
                             "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
                             "property": [
                                 "uuid",
                                 "model",
@@ -104,6 +172,23 @@
                                     "dynamic": true
                                 }
                             }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
                         }
                     ]
                 },
@@ -111,6 +196,23 @@
                     "output": [
                         {
                             "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
                             "property": [
                                 "uuid",
                                 "model",
@@ -146,6 +248,23 @@
                                     "dynamic": true
                                 }
                             }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
                         }
                     ]
                 },
@@ -153,6 +272,23 @@
                     "output": [
                         {
                             "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        },
+                        {
+                            "role": "ROLE_ADMIN",
                             "property": [
                                 "uuid",
                                 "model",
