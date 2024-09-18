@@ -40,7 +40,6 @@ trait Main {
         foreach($explode as $line){
             $line = trim($line);
             if(str_contains($line, $command)){
-                d($command);
                 $temp = explode(' ', $line);
                 foreach($temp as $key => $value){
                     if(empty($value)){
@@ -209,6 +208,7 @@ trait Main {
             $data = $object->data_read($options->url);
             $postfields = [];
             if($data){
+                $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');
                 $postfields['prompt'] = $data->get('prompt');
                 $postfields['stream'] = $data->get('options.stream');
@@ -246,10 +246,16 @@ trait Main {
                 }
                 // Close the cURL session
                 curl_close($ch);
+                $patch = [
+                    'uuid' => $uuid,
+                    'status' => 'finish'
+                ];
+                $node = new Node($object);
+
+                $class = 'Raxon.Ollama.Input';
+                $role = $node->role_system();
+                $patch = $node->patch($class, $role, $patch);
             }
-
-
-
         }
     }
 }
