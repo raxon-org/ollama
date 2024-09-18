@@ -185,15 +185,14 @@ trait Main {
                 $object->config('extension.jsonl')
             ;
             Dir::create($dir, Dir::CHMOD);
-            File::write($url, Core::object($input['node'], Core::OBJECT_JSON));
+            File::write($url, Core::object($input['node'], Core::OBJECT_JSON) . PHP_EOL);
             File::permission($object, [
                 'url' => $url,
                 'dir' => $dir,
             ]);
             $command = 'app raxon/ollama generate -url=' . $url . ' &';
-            ddd($command);
+            exec($command);
         }
-
     }
 
 
