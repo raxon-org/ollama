@@ -190,7 +190,7 @@ trait Main {
                 'url' => $url,
                 'dir' => $dir,
             ]);
-            $command = 'app raxon/ollama generate -url=' . $url . ' &';
+            $command = 'app raxon/ollama generate -url=' . $url . ' 2>&1 &';
             echo $command . PHP_EOL;
             exec($command);
         }
@@ -224,9 +224,9 @@ trait Main {
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
                     File::append($options->url, $chunk);
                     // Output each chunk as it comes in
-                    echo $chunk;
+//                    echo $chunk;
                     // Optionally flush the output buffer to ensure it's displayed immediately
-                    flush();
+//                    flush();
                     // Return the number of bytes processed in this chunk
                     return strlen($chunk);
                 });
