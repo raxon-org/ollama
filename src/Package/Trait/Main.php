@@ -4,13 +4,15 @@ namespace Package\Raxon\Ollama\Trait;
 use Raxon\App;
 use Raxon\Config;
 
-use Raxon\Exception\ObjectException;
 use Raxon\Module\Core;
+use Raxon\Module\Dir;
 use Raxon\Module\File;
 
-use Exception;
 use Raxon\Node\Model\Node;
 
+use Exception;
+
+use Raxon\Exception\ObjectException;
 
 trait Main {
 
@@ -182,6 +184,7 @@ trait Main {
                 $input['node']->uuid .
                 $object->config('extension.jsonl')
             ;
+            Dir::create($dir, Dir::CHMOD);
             File::write($url, Core::object($input['node'], Core::OBJECT_JSON));
             File::permission($object, [
                 'url' => $url,
