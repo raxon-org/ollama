@@ -161,10 +161,11 @@ trait Main {
 
         if(
             $input &&
-            array_key_exists('node', $input)
+            array_key_exists('node', $input) &&
+            property_exists($input['node'], 'uuid')
         ){
             $patch = [
-                'uuid' => $input['node']['uuid'],
+                'uuid' => $input['node']->uuid,
                 'status' => 'process'
             ];
             $node->patch($class, $role, $patch);
