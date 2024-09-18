@@ -190,6 +190,7 @@ trait Main {
                 ]);
                 $command = 'app raxon/ollama generate -url=' . $url . ' 2>&1 &';
                 echo $command . PHP_EOL;
+                flush();
                 exec($command);
                 $counter = 1;
             }
