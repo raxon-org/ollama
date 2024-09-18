@@ -182,7 +182,7 @@ trait Main {
                 $object->config('extension.jsonl')
             ;
             Dir::create($dir, Dir::CHMOD);
-            File::write($url, Core::object($input['node'], Core::OBJECT_JSON) . PHP_EOL);
+            File::write($url, Core::object($input['node'], Core::OBJECT_JSON_LINE) . PHP_EOL);
             File::permission($object, [
                 'url' => $url,
                 'dir' => $dir,
@@ -230,9 +230,9 @@ trait Main {
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
                     File::append($options->url, $chunk);
                     // Output each chunk as it comes in
-                    echo $chunk;
+//                    echo $chunk;
                     // Optionally flush the output buffer to ensure it's displayed immediately
-                    flush();
+//                    flush();
                     // Return the number of bytes processed in this chunk
                     return strlen($chunk);
                 });
