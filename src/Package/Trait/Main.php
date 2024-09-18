@@ -145,7 +145,7 @@ trait Main {
     /**
      * @throws ObjectException
      */
-    public function run($flags, $options): void {
+    public function process($flags, $options): void {
         $object = $this->object();
         $node = new Node($object);
 
