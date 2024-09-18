@@ -171,7 +171,7 @@ trait Main {
             ];
             $patch = $node->patch($class, $role, $patch);
             $dir = $object->config('ramdisk.url') .
-                $object->config(Config::POSIX_ID) .
+                '33' .
                 $object->config('ds') .
                 'Ollama' .
                 $object->config('ds')
