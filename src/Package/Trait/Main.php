@@ -171,7 +171,8 @@ trait Main {
                     'uuid' => $input['node']->uuid,
                     'status' => 'process'
                 ];
-                $node->patch($class, $role, $patch);
+                $patch = $node->patch($class, $role, $patch);
+                ddd($patch);
                 $dir = $object->config('ramdisk.url') .
                     $object->config(Config::POSIX_ID) .
                     $object->config('ds') .
