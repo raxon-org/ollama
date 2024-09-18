@@ -164,11 +164,14 @@ trait Main {
             array_key_exists('node', $input) &&
             property_exists($input['node'], 'uuid')
         ){
+            echo 'Patch to Process...' . PHP_EOL;
+            /*
             $patch = [
                 'uuid' => $input['node']->uuid,
                 'status' => 'process'
             ];
             $node->patch($class, $role, $patch);
+            */
         }
         $url = $object->config('ramdisk.url') .
             $object->config(Config::POSIX_ID) .
