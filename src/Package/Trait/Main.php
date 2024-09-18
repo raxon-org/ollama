@@ -188,9 +188,9 @@ trait Main {
                 'dir' => $dir,
             ]);
             $command = 'app raxon/ollama generate -url=' . $url;
-            echo $command . PHP_EOL;
-            flush();
-//            exec($command);
+//            echo $command . PHP_EOL;
+//            flush();
+            exec($command);
             $counter = 1;
         }
         if($counter > 600){
