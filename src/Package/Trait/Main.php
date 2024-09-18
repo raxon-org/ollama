@@ -4,10 +4,12 @@ namespace Package\Raxon\Ollama\Trait;
 use Raxon\App;
 use Raxon\Config;
 
+use Raxon\Exception\ObjectException;
 use Raxon\Module\Core;
 use Raxon\Module\File;
 
 use Exception;
+use Raxon\Node\Model\Node;
 
 
 trait Main {
@@ -139,6 +141,26 @@ trait Main {
             echo implode(PHP_EOL, $output);
         }
     }
+
+    /**
+     * @throws ObjectException
+     */
+    public function run($flags, $options): void {
+        $object = $this->object();
+        $node = new Node($object);
+
+        $class = 'Raxon.Ollama.Input';
+        $role = $node->role_system();
+
+        $options_input = [
+            'filter' => [
+                'status' => 'start'
+            ]
+        ];
+        $input = $node->record($class, $role, $options_input);
+        ddd($input);
+    }
+
 
     public function generate($flags, $options): void {
         if(property_exists($options, 'url')){
