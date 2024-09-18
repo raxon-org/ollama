@@ -154,56 +154,54 @@ trait Main {
 
         $class = 'Raxon.Ollama.Input';
         $role = $node->role_system();
-        $counter = 1;
-        while(true){
-            $options_input = [
-                'filter' => [
-                    'status' => 'start'
-                ]
+        $counter =  $options->counter ?? 1;
+        $options_input = [
+            'filter' => [
+                'status' => 'start'
+            ]
+        ];
+        $input = $node->record($class, $role, $options_input);
+        if(
+            $input &&
+            array_key_exists('node', $input) &&
+            property_exists($input['node'], 'uuid')
+        ){
+            $patch = [
+                'uuid' => $input['node']->uuid,
+                'status' => 'process'
             ];
-            $input = $node->record($class, $role, $options_input);
-            if(
-                $input &&
-                array_key_exists('node', $input) &&
-                property_exists($input['node'], 'uuid')
-            ){
-                $patch = [
-                    'uuid' => $input['node']->uuid,
-                    'status' => 'process'
-                ];
-                $patch = $node->patch($class, $role, $patch);
-                $dir = $object->config('ramdisk.url') .
-                    $object->config(Config::POSIX_ID) .
-                    $object->config('ds') .
-                    'Ollama' .
-                    $object->config('ds')
-                ;
-                $url = $dir .
-                    $input['node']->uuid .
-                    $object->config('extension.jsonl')
-                ;
-                Dir::create($dir, Dir::CHMOD);
-                File::write($url, Core::object($input['node'], Core::OBJECT_JSON) . PHP_EOL);
-                File::permission($object, [
-                    'url' => $url,
-                    'dir' => $dir,
-                ]);
-                $command = 'app raxon/ollama generate -url=' . $url . '';
-                echo $command . PHP_EOL;
-                flush();
-                exec($command);
-                $counter = 1;
-            }
-            if($counter > 600){
-                //after 1 minute of inactivity go to 5 seconds
-                sleep(5);
-            } else {
-                sleep(1);
-            }
-            $counter++;
+            $patch = $node->patch($class, $role, $patch);
+            $dir = $object->config('ramdisk.url') .
+                $object->config(Config::POSIX_ID) .
+                $object->config('ds') .
+                'Ollama' .
+                $object->config('ds')
+            ;
+            $url = $dir .
+                $input['node']->uuid .
+                $object->config('extension.jsonl')
+            ;
+            Dir::create($dir, Dir::CHMOD);
+            File::write($url, Core::object($input['node'], Core::OBJECT_JSON) . PHP_EOL);
+            File::permission($object, [
+                'url' => $url,
+                'dir' => $dir,
+            ]);
+            $command = 'app raxon/ollama generate -url=' . $url . '';
+            echo $command . PHP_EOL;
+            flush();
+            exec($command);
+            $counter = 1;
         }
+        if($counter > 600){
+            //after 10 minutes of inactivity go to 5 seconds
+            sleep(5);
+        } else {
+            sleep(1);
+        }
+        $options->counter = $counter + 1;
+        $this->process($flags, $options);
     }
-
 
     public function generate($flags, $options): void {
         if(property_exists($options, 'url')){
