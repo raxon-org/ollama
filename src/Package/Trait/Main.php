@@ -188,7 +188,7 @@ trait Main {
                     'url' => $url,
                     'dir' => $dir,
                 ]);
-                $command = 'app raxon/ollama generate -url=' . $url . ' 2>&1 &';
+                $command = 'app raxon/ollama generate -url=' . $url . '';
                 echo $command . PHP_EOL;
                 flush();
                 exec($command);
