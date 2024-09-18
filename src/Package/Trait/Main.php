@@ -222,8 +222,7 @@ trait Main {
                 // Set option to receive data in chunks
                 $result = [];
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
-                    $command = $chunk . ' >> ' . $options->url;
-                    exec($command);
+                    File::append($options->url, $chunk);
                     // Output each chunk as it comes in
                     echo $chunk;
                     // Optionally flush the output buffer to ensure it's displayed immediately
