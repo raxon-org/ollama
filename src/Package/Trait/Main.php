@@ -206,6 +206,9 @@ trait Main {
                 $postfields['model'] = $data->get('model');
                 $postfields['prompt'] = $data->get('prompt');
                 $postfields['stream'] = $data->get('options.stream');
+
+                $post = Core::object($postfields, Core::OBJECT_JSON);
+
                 Core::interactive();
                 $ch = curl_init();
                 // Set the URL of the localhost stream
@@ -213,7 +216,7 @@ trait Main {
                 // Set the POST method
                 curl_setopt($ch, CURLOPT_POST, true);
                 // Set the POST fields
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
                 // Disable CURLOPT_RETURNTRANSFER to output directly
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
                 // Set option to receive data in chunks
