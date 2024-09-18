@@ -171,7 +171,6 @@ trait Main {
                 'status' => 'process'
             ];
             $patch = $node->patch($class, $role, $patch);
-            ddd($patch);
             $dir = $object->config('ramdisk.url') .
                 $object->config(Config::POSIX_ID) .
                 $object->config('ds') .
@@ -188,7 +187,7 @@ trait Main {
                 'url' => $url,
                 'dir' => $dir,
             ]);
-            $command = 'app raxon/ollama generate -url=' . $url . '';
+            $command = 'app raxon/ollama generate -url=' . $url;
             echo $command . PHP_EOL;
             flush();
             exec($command);
