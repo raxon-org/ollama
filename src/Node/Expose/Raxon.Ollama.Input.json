@@ -1,0 +1,176 @@
+{
+    "Raxon": {
+        "Ollama": {
+            "Input": {
+                "count": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                "create": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                "list": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                "read": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                "record": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                "patch": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                "put": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                "page": {
+                    "output": [
+                        {
+                            "role": "ROLE_SYSTEM",
+                            "property": [
+                                "uuid",
+                                "model",
+                                "prompt",
+                                "options",
+                                "status",
+                                "#class"
+                            ],
+                            "object": {
+                                "options": {
+                                    "multiple": false,
+                                    "dynamic": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

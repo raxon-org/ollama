@@ -1,0 +1,37 @@
+{
+  "Node": {
+    "#class": "Raxon.Ollama.Input",
+    "type": "object",
+    "property": [
+      {
+        "name": "model",
+        "type": "string"
+      },
+      {
+        "name": "prompt",
+        "type": "string"
+      },
+      {
+        "name": "options",
+        "type": "object",
+        "multiple": false,
+        "dynamic": true
+      },
+      {
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "name": "uuid",
+        "type": "uuid"
+      },
+      {
+        "name": "#class",
+        "type": "string"
+      }
+    ]
+  },
+  "is.unique": [
+    "uuid"
+  ]
+}
