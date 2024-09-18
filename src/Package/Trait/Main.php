@@ -171,6 +171,7 @@ trait Main {
                 'status' => 'process'
             ];
             $patch = $node->patch($class, $role, $patch);
+            ddd($patch);
             $dir = $object->config('ramdisk.url') .
                 $object->config(Config::POSIX_ID) .
                 $object->config('ds') .
