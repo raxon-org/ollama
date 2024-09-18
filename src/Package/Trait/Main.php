@@ -144,6 +144,7 @@ trait Main {
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     public function process($flags, $options): void {
         $object = $this->object();
@@ -157,7 +158,35 @@ trait Main {
             ]
         ];
         $input = $node->record($class, $role, $options_input);
-        ddd($input);
+
+        if(
+            $input &&
+            array_key_exists('node', $input)
+        ){
+            $patch = [
+                'uuid' => $input['node']['uuid'],
+                'status' => 'process'
+            ];
+            $node->patch($class, $role, $patch);
+        }
+        $url = $object->config('ramdisk.url') .
+            $object->config(Config::POSIX_ID) .
+            $object->config('ds') .
+            'Ollama' .
+            $object->config('ds') .
+            $input['node']['uuid'] .
+            $object->config('extension.jsonl')
+        ;
+        $prompt = $input['node']->options->prompt;
+        $model = $input['node']->options->model;
+        $stream = $input['node']->options->stream ?? true;
+        $command = 'app raxon/ollama generate -url=' . $url .
+            ' -prompt="' . $prompt . '"' .
+            ' -model=' . $model .
+            ' -stream=' . $stream . ' &'
+        ;
+
+        ddd($command);
     }
 
 
