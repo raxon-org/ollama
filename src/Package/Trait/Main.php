@@ -151,9 +151,6 @@ trait Main {
 
         $class = 'Raxon.Ollama.Input';
         $role = $node->role_system();
-
-        ddd($role);
-
         $options_input = [
             'filter' => [
                 'status' => 'start'
