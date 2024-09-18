@@ -194,7 +194,7 @@ trait Main {
                 exec($command);
                 $counter = 1;
             }
-            if($counter > 60){
+            if($counter > 600){
                 //after 1 minute of inactivity go to 5 seconds
                 sleep(5);
             } else {
