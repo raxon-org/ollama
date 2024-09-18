@@ -177,14 +177,8 @@ trait Main {
             $input['node']['uuid'] .
             $object->config('extension.jsonl')
         ;
-        $prompt = $input['node']->options->prompt;
-        $model = $input['node']->options->model;
-        $stream = $input['node']->options->stream ?? true;
-        $command = 'app raxon/ollama generate -url=' . $url .
-            ' -prompt="' . $prompt . '"' .
-            ' -model=' . $model .
-            ' -stream=' . $stream . ' &'
-        ;
+        File::append($url, Core::object($input['node'], Core::OBJECT_JSON));
+        $command = 'app raxon/ollama generate -url=' . $url . ' &';
 
         ddd($command);
     }
@@ -192,10 +186,9 @@ trait Main {
 
     public function generate($flags, $options): void {
         if(property_exists($options, 'url')){
-            $data = clone $options;
-            unset($data->url);
-            $data = Core::object($options, Core::OBJECT_JSON);
-            File::write($options->url, $data);
+            $object = $this->object();
+            $data = $object->data_read($options->url);
+            ddd($data);
             Core::interactive();
             $ch = curl_init();
             // Set the URL of the localhost stream
