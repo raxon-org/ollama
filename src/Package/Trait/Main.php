@@ -227,6 +227,9 @@ trait Main {
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
                 // Set option to receive data in chunks
                 $result = [];
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);           // 30 seconds for the full request
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);    // 10 seconds for the connection
+
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
                     File::append($options->url, $chunk);
                     // Output each chunk as it comes in
