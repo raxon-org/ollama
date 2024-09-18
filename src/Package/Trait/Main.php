@@ -172,17 +172,22 @@ trait Main {
             ];
             $node->patch($class, $role, $patch);
             */
-            $url = $object->config('ramdisk.url') .
+            $dir = $object->config('ramdisk.url') .
                 $object->config(Config::POSIX_ID) .
                 $object->config('ds') .
                 'Ollama' .
-                $object->config('ds') .
+                $object->config('ds')
+            ;
+            $url = $dir .
                 $input['node']->uuid .
                 $object->config('extension.jsonl')
             ;
-            File::append($url, Core::object($input['node'], Core::OBJECT_JSON));
+            File::write($url, Core::object($input['node'], Core::OBJECT_JSON));
+            File::permission($object, [
+                'url' => $url,
+                'dir' => $dir,
+            ]);
             $command = 'app raxon/ollama generate -url=' . $url . ' &';
-
             ddd($command);
         }
 
