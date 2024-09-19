@@ -283,7 +283,10 @@ trait Main {
                 curl_exec($ch);
                 // Check for errors
                 if (curl_errno($ch)) {
-                    //restart ollama ? need to record curl errors and if 5 or more restart ollama
+                    //restart ollama ? need to record curl errors and if 5 or more, or specific error like cannot connect to http server
+                    // restart ollama
+                    // app raxon/ollama stop (stops ollama)
+                    // app raxon/ollama start & (starts ollama)
                     echo 'Curl error: ' . curl_error($ch);
                 }
                 // Close the cURL session
