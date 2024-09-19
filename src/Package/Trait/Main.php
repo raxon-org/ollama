@@ -130,18 +130,33 @@ trait Main {
         }
         if($info['pid'] === null){
             //check retry strategy.
-            $info = $this->info('app raxon/ollama guard');
-            if($info['pid'] !== null){
-                $command = 'kill  ' . escapeshellcmd($info['pid']);
-                exec($command, $output);
+            while(true){
+                $info = $this->info('app raxon/ollama guard');
+                if($info['pid'] !== null){
+                    $command = 'kill  ' . escapeshellcmd($info['pid']);
+                    exec($command, $output);
+                } else {
+                    break;
+                }
             }
             $command = 'app raxon/ollama guard &';
             Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
             echo $output;
         }
+        exit(0);
     }
 
     public function stop($flags, $options): void {
+        //remove guards first in a while loop
+        while(true){
+            $info = $this->info('app raxon/ollama guard');
+            if($info['pid'] !== null){
+                $command = 'kill  ' . escapeshellcmd($info['pid']);
+                exec($command, $output);
+            } else {
+                break;
+            }
+        }
         $info = $this->info('ollama serve');
         if($info['pid'] !== null){
             //check retry strategy.
@@ -149,6 +164,7 @@ trait Main {
             exec($command, $output);
             echo implode(PHP_EOL, $output);
         }
+        exit(0);
     }
 
     /**
@@ -217,6 +233,7 @@ trait Main {
      * @throws ObjectException
      * @throws FileWriteException
      * @throws FileAppendException
+     * @throws Exception
      */
     public function generate($flags, $options): void {
         if(property_exists($options, 'url')){
