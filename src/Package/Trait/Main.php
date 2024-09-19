@@ -151,7 +151,7 @@ trait Main {
      * @throws Exception
      */
     public function process($flags, $options): void {
-        $object = $this->object();
+        $object = App::instance();
         $node = new Node($object);
 
         $class = 'Raxon.Ollama.Input';
