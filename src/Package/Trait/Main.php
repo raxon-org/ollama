@@ -216,7 +216,9 @@ trait Main {
 //            echo $command . PHP_EOL;
 //            flush();
             exec($command, $output);
-            echo implode(PHP_EOL, $output) . PHP_EOL;
+            if(!empty($output)){
+                echo implode(PHP_EOL, $output) . PHP_EOL;
+            }
             $counter = 1;
         }
         if($counter > 600){
@@ -281,6 +283,7 @@ trait Main {
                 curl_exec($ch);
                 // Check for errors
                 if (curl_errno($ch)) {
+                    //restart ollama ? need to record curl errors and if 5 or more restart ollama
                     echo 'Curl error: ' . curl_error($ch);
                 }
                 // Close the cURL session
