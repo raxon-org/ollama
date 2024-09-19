@@ -227,7 +227,7 @@ trait Main {
                         'file.read'
                     ]
                 ]);
-                $postfields['prompt'] = $parse->compile($postfields['prompt'], [], $object->data());
+                $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
                 $postfields['stream'] = $data->get('options.stream');
 
                 ddd($postfields);
