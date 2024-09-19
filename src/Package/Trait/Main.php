@@ -131,7 +131,7 @@ trait Main {
         if($info['pid'] === null){
             //check retry strategy.
             while(true){
-                $info = $this->info('app raxon/ollama guard');
+                $info = $this->info('raxon/ollama guard');
                 if($info['pid'] !== null){
                     $command = 'kill  ' . escapeshellcmd($info['pid']);
                     exec($command, $output);
@@ -149,7 +149,7 @@ trait Main {
     public function stop($flags, $options): void {
         //remove guards first in a while loop
         while(true){
-            $info = $this->info('app raxon/ollama guard');
+            $info = $this->info('raxon/ollama guard');
             if($info['pid'] !== null){
                 $command = 'kill  ' . escapeshellcmd($info['pid']);
                 exec($command, $output);
