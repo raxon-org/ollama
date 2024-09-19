@@ -113,7 +113,7 @@ trait Main {
                 Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
                 echo $output;
             }
-            sleep(1);
+            sleep(5);
         }
     }
 
