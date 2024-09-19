@@ -224,7 +224,7 @@ trait Main {
                 $parse = new Parse($object);
                 $parse->limit([
                     'function' => [
-                        'file.read'
+                        'file_read'
                     ]
                 ]);
                 $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
