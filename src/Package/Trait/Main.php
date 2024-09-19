@@ -193,7 +193,7 @@ trait Main {
 //            echo $command . PHP_EOL;
 //            flush();
             exec($command, $output);
-            echo $output . PHP_EOL;
+            echo implode(PHP_EOL, $output) . PHP_EOL;
             $counter = 1;
         }
         if($counter > 600){
