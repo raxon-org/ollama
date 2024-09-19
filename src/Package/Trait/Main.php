@@ -4,10 +4,13 @@ namespace Package\Raxon\Ollama\Trait;
 use Raxon\App;
 use Raxon\Config;
 
+use Raxon\Exception\FileAppendException;
+use Raxon\Exception\FileWriteException;
 use Raxon\Module\Core;
 use Raxon\Module\Dir;
 use Raxon\Module\File;
 
+use Raxon\Module\Parse;
 use Raxon\Node\Model\Node;
 
 use Exception;
@@ -202,6 +205,11 @@ trait Main {
         $this->process($flags, $options);
     }
 
+    /**
+     * @throws ObjectException
+     * @throws FileWriteException
+     * @throws FileAppendException
+     */
     public function generate($flags, $options): void {
         if(property_exists($options, 'url')){
             $object = $this->object();
@@ -211,6 +219,14 @@ trait Main {
                 $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');
                 $postfields['prompt'] = $data->get('prompt');
+
+                $parse = new Parse($object);
+                $parse->limit([
+                    'function' => [
+                        'file.read'
+                    ]
+                ]);
+                $postfields['prompt'] = $parse->compile($postfields['prompt'], [], $object->data());
                 $postfields['stream'] = $data->get('options.stream');
 
                 $post = Core::object($postfields, Core::OBJECT_JSON);
