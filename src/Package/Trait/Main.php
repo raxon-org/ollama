@@ -173,6 +173,10 @@ trait Main {
      */
     public function process($flags, $options): void {
         $object = $this->object();
+
+        $object->logger('project.log.debug')->info('Processing ollama...');
+
+
         $instance = App::instance();
         $object->config('ramdisk.url', $instance->config('ramdisk.url'));
         $node = new Node($object);
@@ -273,6 +277,7 @@ trait Main {
 
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
                     File::append($options->url, $chunk);
+                    //make abort happen here
                     // Output each chunk as it comes in
 //                    echo $chunk;
                     // Optionally flush the output buffer to ensure it's displayed immediately
