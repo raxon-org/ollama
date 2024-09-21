@@ -191,7 +191,7 @@ trait Main {
 
         echo 'Processing ollama...' . PHP_EOL;
 
-        $object->logger('project.log.debug')->info('Processing ollama...');
+//        $object->logger('project.log.debug')->info('Processing ollama...');
 
         while(true){
             $instance = App::instance();
