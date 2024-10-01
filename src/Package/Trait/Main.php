@@ -247,7 +247,7 @@ trait Main {
                 sleep(5);
             }
             elseif($counter > 1800){
-                //after 30 minutes of inactivity go to exit
+                //after 30 minutes of inactivity go to exit.
                 exit(0);
             }
             else {
