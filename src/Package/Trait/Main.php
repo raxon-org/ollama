@@ -192,15 +192,13 @@ trait Main {
         echo 'Processing ollama...' . PHP_EOL;
 
 //        $object->logger('project.log.debug')->info('Processing ollama...');
-
+        $counter =  $options->counter ?? 1;
         while(true){
             $instance = App::instance();
             $object->config('ramdisk.url', $instance->config('ramdisk.url'));
             $node = new Node($object);
-
             $class = 'Raxon.Ollama.Input';
             $role = $node->role_system();
-            $counter =  $options->counter ?? 1;
             $options_input = [
                 'filter' => [
                     'status' => 'start'
@@ -241,6 +239,7 @@ trait Main {
                     echo implode(PHP_EOL, $output) . PHP_EOL;
                 }
                 $counter = 1;
+                unset($patch);
             }
             if($counter > 600){
                 //after 10 minutes of inactivity go to 5 seconds
@@ -253,6 +252,11 @@ trait Main {
             else {
                 sleep(1);
             }
+            unset($node);
+            unset($instance);
+            unset($input);
+            unset($role);
+            $counter++;
         }
     }
 
