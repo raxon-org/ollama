@@ -271,6 +271,7 @@ trait Main {
             $object = $this->object();
             $data = $object->data_read($options->url);
             $postfields = [];
+            ini_set('max_execution_time', 3600);
             if($data){
                 $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');
@@ -297,7 +298,7 @@ trait Main {
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
                 // Set option to receive data in chunks
                 $result = [];
-                curl_setopt($ch, CURLOPT_TIMEOUT, 1800);           // 30 minutes for the full request
+                curl_setopt($ch, CURLOPT_TIMEOUT, 3600);           // 60 minutes for the full request
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);    // 10 seconds for the connection
 
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
