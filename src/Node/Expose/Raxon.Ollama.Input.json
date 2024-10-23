@@ -12,13 +12,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -29,13 +35,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]
@@ -50,13 +62,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -67,13 +85,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]
@@ -88,13 +112,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -105,13 +135,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]
@@ -126,13 +162,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -143,13 +185,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]
@@ -164,13 +212,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -181,13 +235,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]
@@ -202,13 +262,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -219,13 +285,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]
@@ -240,13 +312,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -257,13 +335,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]
@@ -278,13 +362,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         },
                         {
@@ -295,13 +385,19 @@
                                 "prompt",
                                 "options",
                                 "status",
+                                "curl",
                                 "#class"
                             ],
                             "object": {
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
+                                },
+                                "curl": {
+                                    "multiple": false,
+                                    "dynamic": true
                                 }
+
                             }
                         }
                     ]

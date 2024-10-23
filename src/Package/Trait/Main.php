@@ -325,7 +325,10 @@ trait Main {
                 curl_close($ch);
                 $patch = [
                     'uuid' => $uuid,
-                    'status' => 'finish'
+                    'status' => 'finish',
+                    'curl' => [
+                        'error' => curl_error($ch),
+                    ]
                 ];
                 $node = new Node($object);
 

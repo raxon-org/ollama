@@ -22,6 +22,12 @@
         "type": "string"
       },
       {
+        "name": "curl",
+        "type": "object",
+        "multiple": false,
+        "dynamic": true
+      },
+      {
         "name": "uuid",
         "type": "uuid"
       },
