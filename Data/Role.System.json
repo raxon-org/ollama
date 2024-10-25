@@ -4,6 +4,10 @@
   "#class": "Account.Role",
   "permission": [
     {
+      "name": "Raxon:Ollama:Queue",
+      "#class": "Account.Permission"
+    },
+    {
       "name": "Raxon:Ollama:Input:record",
       "#class": "Account.Permission"
     },
