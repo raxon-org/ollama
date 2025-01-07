@@ -149,7 +149,11 @@ trait Main {
             }
             $command = 'app raxon/ollama guard &';
             Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
-            echo $output;
+            if(is_array($output)){
+                echo implode(PHP_EOL, $output);
+            } else {
+                echo $output;
+            }
         }
         exit(0);
     }
