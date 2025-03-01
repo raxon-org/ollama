@@ -11,7 +11,7 @@ use Raxon\Module\Dir;
 use Raxon\Module\File;
 
 use Raxon\Module\Parse;
-use Raxon\Node\Model\Node;
+use Raxon\Node\Module\Node;
 
 use Exception;
 
