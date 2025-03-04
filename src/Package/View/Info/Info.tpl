@@ -1,7 +1,7 @@
 {{$request = request()}}
 Package: {{$request.package}}
 
-Module: {{$request.module|uppercase.first}}
+Module: {{$request.module|string.uppercase.first}}
 
 start
 stop
