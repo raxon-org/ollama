@@ -209,7 +209,6 @@ trait Main {
                 ]
             ];
             $input = $node->record($class, $role, $options_input);
-            ddd($input);
             if(
                 $input &&
                 array_key_exists('node', $input) &&
