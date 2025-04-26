@@ -5,6 +5,7 @@ use Raxon\App;
 use Raxon\Exception\FileAppendException;
 use Raxon\Exception\FileWriteException;
 use Raxon\Module\Core;
+use Raxon\Module\Data;
 use Raxon\Module\Dir;
 use Raxon\Module\File;
 use Raxon\Node\Module\Node;
