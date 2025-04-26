@@ -298,10 +298,14 @@ trait Main {
                 $parse->limit([
                     'File.read'
                 ]);
+                ob_start();
                 $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
+                if(empty($postfields['prompt'])){
+                    $postfields['prompt'] = ob_get_contents());
+                    ob_end_clean();
+                }
                 $postfields['stream'] = $data->get('options.stream');
                 $post = Core::object($postfields, Core::OBJECT_JSON);
-                dd($post);
                 Core::interactive();
                 $ch = curl_init();
                 // Set the URL of the localhost stream
