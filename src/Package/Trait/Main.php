@@ -2,16 +2,13 @@
 namespace Package\Raxon\Ollama\Trait;
 
 use Raxon\App;
-use Raxon\Config;
-
 use Raxon\Exception\FileAppendException;
 use Raxon\Exception\FileWriteException;
 use Raxon\Module\Core;
 use Raxon\Module\Dir;
 use Raxon\Module\File;
-
-use Raxon\Module\Parse;
 use Raxon\Node\Module\Node;
+use Raxon\Parse\Module\Parse;
 
 use Exception;
 
@@ -281,12 +278,16 @@ trait Main {
                 $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');
                 $postfields['prompt'] = $data->get('prompt');
-
-                $parse = new Parse($object);
+                $parse = new Parse($object, $object->data(), $flags, $options);
+                /*
                 $parse->limit([
                     'function' => [
                         'file_read'
                     ]
+                ]);
+                */
+                $parse->limit([
+                    'File.read'
                 ]);
                 $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
                 $postfields['stream'] = $data->get('options.stream');
