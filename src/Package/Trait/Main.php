@@ -275,6 +275,7 @@ trait Main {
                 $data = $object->data_read($options->source);
             }
             catch(Exception $e){
+                echo (string) $e . PHP_EOL;
                 $data = false;
             }
 
@@ -300,7 +301,7 @@ trait Main {
                 $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
                 $postfields['stream'] = $data->get('options.stream');
                 $post = Core::object($postfields, Core::OBJECT_JSON);
-                breakpoint($post);
+                dd($post);
                 Core::interactive();
                 $ch = curl_init();
                 // Set the URL of the localhost stream
