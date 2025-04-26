@@ -301,7 +301,7 @@ trait Main {
                 ob_start();
                 $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
                 if(empty($postfields['prompt'])){
-                    $postfields['prompt'] = ob_get_contents());
+                    $postfields['prompt'] = ob_get_contents();
                     ob_end_clean();
                 }
                 $postfields['stream'] = $data->get('options.stream');
