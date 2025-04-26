@@ -278,7 +278,8 @@ trait Main {
                 $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');
                 $postfields['prompt'] = $data->get('prompt');
-                $parse = new Parse($object, $object->data(), $flags, $options);
+                $parseData = new Data($object->data());
+                $parse = new Parse($object, $parseData, $flags, $options);
                 /*
                 $parse->limit([
                     'function' => [
