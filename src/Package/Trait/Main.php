@@ -271,7 +271,7 @@ trait Main {
     public function generate($flags, $options): void {
         if(property_exists($options, 'source')){
             $object = $this->object();
-            $data = $object->data_read($options->url);
+            $data = $object->data_read($options->source);
             $postfields = [];
             ini_set('max_execution_time', 3600);
             set_time_limit(3600);
