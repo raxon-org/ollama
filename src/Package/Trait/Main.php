@@ -233,7 +233,7 @@ trait Main {
                     'url' => $url,
                     'dir' => $dir,
                 ]);
-                $command = 'app raxon/ollama generate -url=' . $url;
+                $command = 'app raxon/ollama generate -source=' . $url;
 //            echo $command . PHP_EOL;
 //            flush();
                 exec($command, $output);
@@ -269,7 +269,7 @@ trait Main {
      * @throws Exception
      */
     public function generate($flags, $options): void {
-        if(property_exists($options, 'url')){
+        if(property_exists($options, 'source')){
             $object = $this->object();
             $data = $object->data_read($options->url);
             $postfields = [];
