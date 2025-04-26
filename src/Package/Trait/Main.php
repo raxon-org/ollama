@@ -300,7 +300,6 @@ trait Main {
                 ]);
                 $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
                 $postfields['stream'] = $data->get('options.stream');
-                ddd($postfields);
                 $post = Core::object($postfields, Core::OBJECT_JSON);
                 Core::interactive();
                 $ch = curl_init();
