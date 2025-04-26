@@ -306,6 +306,7 @@ trait Main {
                 }
                 $postfields['stream'] = $data->get('options.stream');
                 $post = Core::object($postfields, Core::OBJECT_JSON);
+                File::append($options->source, $post . PHP_EOL);
                 Core::interactive();
                 $ch = curl_init();
                 // Set the URL of the localhost stream
