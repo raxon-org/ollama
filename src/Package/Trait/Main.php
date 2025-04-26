@@ -310,7 +310,7 @@ trait Main {
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);    // 10 seconds for the connection
 
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($options) {
-                    File::append($options->url, $chunk);
+                    File::append($options->source, $chunk);
                     //make abort happen here
                     // Output each chunk as it comes in
 //                    echo $chunk;
