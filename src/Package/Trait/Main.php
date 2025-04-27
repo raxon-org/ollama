@@ -301,7 +301,6 @@ trait Main {
                     'File.read'
                 ]);
                 $data->data($parse->compile($data->data(), $object->data()));
-                ddd($data);
                 $postfields['prompt'] = $data->get('prompt');
                 $postfields['stream'] = $data->get('options.stream');
                 $options->source = $source;
