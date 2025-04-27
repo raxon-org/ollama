@@ -300,7 +300,7 @@ trait Main {
                 $parse->limit([
                     'File.read'
                 ]);
-                $data->data($parse->compile($data->get()), $object->data());
+                $data->data($parse->compile($data->data()), $object->data());
                 ddd($data);
                 $postfields['prompt'] = $data->get('prompt');
                 $postfields['stream'] = $data->get('options.stream');
