@@ -287,6 +287,8 @@ trait Main {
                 $postfields['model'] = $data->get('model');
                 $postfields['prompt'] = $data->get('prompt');
                 $parseData = new Data($object->data());
+                $source = $options->source;
+                $options->source = 'Internal_' . $uuid;
                 $parse = new Parse($object, $parseData, $flags, $options);
                 /*
                 $parse->limit([
@@ -300,6 +302,7 @@ trait Main {
                 ]);
                 $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
                 $postfields['stream'] = $data->get('options.stream');
+                $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON);
                 Core::interactive();
                 $ch = curl_init();
