@@ -302,6 +302,7 @@ trait Main {
                 ]);
                 $data->set($parse->compile($data->get()), $object->data());
                 ddd($data);
+                $postfields['prompt'] = $data->get('prompt');
                 $postfields['stream'] = $data->get('options.stream');
                 $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON);
