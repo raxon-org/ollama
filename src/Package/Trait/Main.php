@@ -300,7 +300,8 @@ trait Main {
                 $parse->limit([
                     'File.read'
                 ]);
-                $postfields['prompt'] = $parse->compile($postfields['prompt'], $object->data());
+                $data->set($parse->compile($data->get()), $object->data());
+                ddd($data);
                 $postfields['stream'] = $data->get('options.stream');
                 $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON);
