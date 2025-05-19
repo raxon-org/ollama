@@ -234,9 +234,9 @@ trait Main {
                     'dir' => $dir,
                 ]);
                 $command = 'app raxon/ollama generate -source=' . $url;
-            echo $command . PHP_EOL;
+//            echo $command . PHP_EOL;
 //            flush();
-//                exec($command, $output);
+                exec($command, $output);
                 if(!empty($output)){
                     echo implode(PHP_EOL, $output) . PHP_EOL;
                 }
