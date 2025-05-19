@@ -234,9 +234,9 @@ trait Main {
                     'dir' => $dir,
                 ]);
                 $command = 'app raxon/ollama generate -source=' . $url;
-            echo $command . PHP_EOL;
+//            echo $command . PHP_EOL;
 //            flush();
-//                exec($command, $output);
+                exec($command, $output);
                 if(!empty($output)){
                     echo implode(PHP_EOL, $output) . PHP_EOL;
                 }
@@ -314,7 +314,7 @@ trait Main {
                 // Set the URL of the localhost
 
                 $command =  'curl http://localhost:11434/api/generate -d \'' . str_replace('\'', '\\\'', $post) . '\' >> ' . $options->source . ' &';
-                echo $command . PHP_EOL;
+//                echo $command . PHP_EOL;
                 exec($command, $output);
                 /*
                 if(is_array($output)){
