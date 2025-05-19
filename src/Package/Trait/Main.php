@@ -302,11 +302,9 @@ trait Main {
                 ]);
                 $data->data($parse->compile($data->data(), $object->data()));
                 $postfields['prompt'] = $data->get('prompt');
-                $postfields['stream'] = $data->get('options.stream');
+                $postfields['stream'] = $data->extract('options.stream');
                 $postfields['keep_alive'] = '30m';
-                $postfields['options'] = [
-                    'num_ctx' => 8096,
-                ];
+                $postfields['options'] = (array) $data->get('options');
                 //images
                 $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON);
