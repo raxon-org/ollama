@@ -306,7 +306,6 @@ trait Main {
                 $data->extract('options.#property');
                 $postfields['keep_alive'] = '30m';
                 $postfields['options'] = (array) $data->get('options');
-                ddd($postfields);
                 //images
                 $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON);
