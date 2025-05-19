@@ -310,9 +310,8 @@ trait Main {
                 $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 Core::interactive();
-//                $ch = curl_init();
-                // Set the URL of the localhost
-
+//
+                /*
                 $command =  'curl http://localhost:11434/api/generate -d \'' . str_replace('\'', '\\\'', $post) . '\' >> ' . $options->source . ' &';
 //                echo $command . PHP_EOL;
                 exec($command, $output);
@@ -325,8 +324,9 @@ trait Main {
                 */
 
 
-                /*
-                curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:11434/api/generate");
+                $ch = curl_init();
+                // Set the URL of the localhost
+                curl_setopt($ch, CURLOPT_URL, "http://localhost:11434/api/generate");
                 // Set the POST method
                 curl_setopt($ch, CURLOPT_POST, true);
                 // Set the POST fields
@@ -359,7 +359,6 @@ trait Main {
                 }
                 // Close the cURL session
                 curl_close($ch);
-                */
                 $patch = [
                     'uuid' => $uuid,
                     'status' => 'finish',
