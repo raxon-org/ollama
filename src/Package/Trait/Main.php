@@ -313,7 +313,7 @@ trait Main {
 //                $ch = curl_init();
                 // Set the URL of the localhost
 
-                $command =  'curl http://localhost:11434/api/generate -d ' . $post . ' >> ' . $options->source . ' &';
+                $command =  'curl http://localhost:11434/api/generate -d \'' . str_replace('\'', '\\\'', $post) . '\' >> ' . $options->source . ' &';
                 exec($command, $output);
                 if(is_array($output)){
                     echo implode(PHP_EOL, $output) . PHP_EOL;
