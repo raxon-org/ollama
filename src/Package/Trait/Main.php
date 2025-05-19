@@ -312,7 +312,7 @@ trait Main {
                 Core::interactive();
                 $ch = curl_init();
                 // Set the URL of the localhost stream
-                curl_setopt($ch, CURLOPT_URL, "http://localhost:11434/api/generate");
+                curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:11434/api/generate");
                 // Set the POST method
                 curl_setopt($ch, CURLOPT_POST, true);
                 // Set the POST fields
