@@ -316,11 +316,13 @@ trait Main {
                 $command =  'curl http://localhost:11434/api/generate -d \'' . str_replace('\'', '\\\'', $post) . '\' >> ' . $options->source . ' &';
                 echo $command . PHP_EOL;
 //                exec($command, $output);
+                /*
                 if(is_array($output)){
                     echo implode(PHP_EOL, $output) . PHP_EOL;
                 } else {
                     echo $output;
                 }
+                */
 
 
                 /*
