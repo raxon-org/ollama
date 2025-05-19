@@ -308,13 +308,14 @@ trait Main {
                 $postfields['options'] = (array) $data->get('options');
                 //images
                 $options->source = $source;
-                $post = Core::object($postfields, Core::OBJECT_JSON);
+                $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 Core::interactive();
 //                $ch = curl_init();
                 // Set the URL of the localhost
 
                 $command =  'curl http://localhost:11434/api/generate -d \'' . str_replace('\'', '\\\'', $post) . '\' >> ' . $options->source . ' &';
-                exec($command, $output);
+                echo $command . PHP_EOL;
+//                exec($command, $output);
                 if(is_array($output)){
                     echo implode(PHP_EOL, $output) . PHP_EOL;
                 } else {
