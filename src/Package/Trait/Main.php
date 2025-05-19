@@ -303,6 +303,7 @@ trait Main {
                 $data->data($parse->compile($data->data(), $object->data()));
                 $postfields['prompt'] = $data->get('prompt');
                 $postfields['stream'] = $data->extract('options.stream');
+                $data->extract('options.#property');
                 $postfields['keep_alive'] = '30m';
                 $postfields['options'] = (array) $data->get('options');
                 ddd($postfields);
