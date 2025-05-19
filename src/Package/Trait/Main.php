@@ -310,8 +310,19 @@ trait Main {
                 $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON);
                 Core::interactive();
-                $ch = curl_init();
-                // Set the URL of the localhost stream
+//                $ch = curl_init();
+                // Set the URL of the localhost
+
+                $command =  'curl http://localhost:11434/api/generate -d ' . $post . ' >> ' . $options->source . ' &';
+                exec($command, $output);
+                if(is_array($output)){
+                    echo implode(PHP_EOL, $output) . PHP_EOL;
+                } else {
+                    echo $output;
+                }
+
+
+                /*
                 curl_setopt($ch, CURLOPT_URL, "http://127.0.0.1:11434/api/generate");
                 // Set the POST method
                 curl_setopt($ch, CURLOPT_POST, true);
@@ -345,13 +356,12 @@ trait Main {
                 }
                 // Close the cURL session
                 curl_close($ch);
+                */
                 $patch = [
                     'uuid' => $uuid,
                     'status' => 'finish',
-                    'curl' => [
-                        'error' => curl_error($ch),
-                    ]
                 ];
+
                 $node = new Node($object);
 
                 $class = 'Raxon.Ollama.Input';
