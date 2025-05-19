@@ -305,6 +305,7 @@ trait Main {
                 $postfields['stream'] = $data->extract('options.stream');
                 $postfields['keep_alive'] = '30m';
                 $postfields['options'] = (array) $data->get('options');
+                ddd($postfields);
                 //images
                 $options->source = $source;
                 $post = Core::object($postfields, Core::OBJECT_JSON);
