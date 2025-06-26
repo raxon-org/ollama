@@ -227,7 +227,6 @@ trait Main {
                     $input['node']->uuid .
                     $object->config('extension.jsonl')
                 ;
-                ddd($url);
                 Dir::create($dir, Dir::CHMOD);
                 File::write($url, Core::object($input['node'], Core::OBJECT_JSON_LINE) . PHP_EOL);
                 File::permission($object, [
