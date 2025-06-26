@@ -234,6 +234,10 @@ trait Main {
                     'dir' => $dir,
                 ]);
                 $command = 'app raxon/ollama generate -source=' . $url;
+                $logger = $object->config('project.log.ollama');
+                if($logger){
+                    $object->logger($logger)->info($command);
+                }
 //            echo $command . PHP_EOL;
 //            flush();
                 exec($command, $output);
