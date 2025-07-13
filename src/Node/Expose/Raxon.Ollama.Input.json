@@ -13,6 +13,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -36,6 +39,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -63,6 +69,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -86,6 +95,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -113,6 +125,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -136,6 +151,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -163,6 +181,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -186,6 +207,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -213,6 +237,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -236,6 +263,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -263,6 +293,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -286,6 +319,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -313,6 +349,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -336,6 +375,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -363,6 +405,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
@@ -386,6 +431,9 @@
                                 "options",
                                 "status",
                                 "curl",
+                                "endpoint",
+                                "messages",
+                                "tools",
                                 "#class"
                             ],
                             "object": {
