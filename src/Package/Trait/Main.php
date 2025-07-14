@@ -287,8 +287,7 @@ trait Main {
             ini_set('max_execution_time', 3600);
             set_time_limit(3600);
             if($data){
-                $url = $data->get('endpoint');
-                
+                $url = $data->get('endpoint');            
                 $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');                
                 $parseData = new Data($object->data());
@@ -309,24 +308,21 @@ trait Main {
                 if(
                     str_contains($url, '/generate')
                 ){
-                    $postfields['prompt'] = $data->get('prompt');    
-                    d('y1');
+                    $postfields['prompt'] = $data->get('prompt');                        
                 }
                 if(
                     str_contains($url, '/chat')
                 ){                    
                     $postfields['messages'] = $data->get('messages');    
                     $postfields['tools'] = $data->get('tools');    
-                    d('y2');
+                    $postfields['think'] = $data->get('think') ?? false;                       
                 }           
                 $postfields['stream'] = $data->extract('options.stream');
                 $data->extract('options.#property');                
                 $postfields['keep_alive'] = '30m';
                 $postfields['options'] = (array) $data->get('options');
                 //images
-                $options->source = $source;
-                d($url);                
-                ddd($postfields);
+                $options->source = $source;                
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 Core::interactive();
 //
