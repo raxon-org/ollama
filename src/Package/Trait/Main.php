@@ -319,10 +319,12 @@ trait Main {
                 }           
                 $postfields['stream'] = $data->extract('options.stream');
                 $data->extract('options.#property');
+                $data->extract('options.#property');
                 $postfields['keep_alive'] = '30m';
                 $postfields['options'] = (array) $data->get('options');
                 //images
                 $options->source = $source;
+                ddd($postfields);
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 Core::interactive();
 //
