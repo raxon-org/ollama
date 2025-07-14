@@ -287,12 +287,13 @@ trait Main {
             ini_set('max_execution_time', 3600);
             set_time_limit(3600);
             if($data){
+                $url = $data->get('endpoint');
+                
                 $uuid = $data->get('uuid');
-                $postfields['model'] = $data->get('model');
-                $postfields['prompt'] = $data->get('prompt');
+                $postfields['model'] = $data->get('model');                
                 $parseData = new Data($object->data());
                 $source = $options->source;
-                $options->source = 'Internal_' . $uuid;
+                $options->source = 'Internal_' . hash('sha256', $url);
                 $parse = new Parse($object, $parseData, $flags, $options);
                 /*
                 $parse->limit([
@@ -305,7 +306,17 @@ trait Main {
                     'File.read'
                 ]);
                 $data->data($parse->compile($data->data(), $object->data()));
-                $postfields['prompt'] = $data->get('prompt');
+                if(
+                    str_contains('generate', $url)
+                ){
+                    $postfields['prompt'] = $data->get('prompt');    
+                }
+                elseif(
+                    str_contains('chat', $url)
+                ){                    
+                    $postfields['messages'] = $data->get('messages');    
+                    $postfields['tools'] = $data->get('tools');    
+                }           
                 $postfields['stream'] = $data->extract('options.stream');
                 $data->extract('options.#property');
                 $postfields['keep_alive'] = '30m';
@@ -330,7 +341,7 @@ trait Main {
 
                 $ch = curl_init();
                 // Set the URL of the localhost
-                curl_setopt($ch, CURLOPT_URL, "http://localhost:11434/api/generate");
+                curl_setopt($ch, CURLOPT_URL, $url);
                 // Set the POST method
                 curl_setopt($ch, CURLOPT_POST, true);
                 // Set the POST fields
