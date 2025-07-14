@@ -307,13 +307,13 @@ trait Main {
                 ]);
                 $data->data($parse->compile($data->data(), $object->data()));
                 if(
-                    str_contains('/generate', $url)
+                    str_contains($url, '/generate')
                 ){
                     $postfields['prompt'] = $data->get('prompt');    
                     d('y1');
                 }
                 if(
-                    str_contains('/chat', $url)
+                    str_contains($url, '/chat')
                 ){                    
                     $postfields['messages'] = $data->get('messages');    
                     $postfields['tools'] = $data->get('tools');    
@@ -325,7 +325,7 @@ trait Main {
                 $postfields['options'] = (array) $data->get('options');
                 //images
                 $options->source = $source;
-                d($url);
+                d($url);                
                 ddd($postfields);
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 Core::interactive();
