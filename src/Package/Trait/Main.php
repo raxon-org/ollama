@@ -311,19 +311,19 @@ trait Main {
                 ){
                     $postfields['prompt'] = $data->get('prompt');    
                 }
-                elseif(
+                if(
                     str_contains('chat', $url)
                 ){                    
                     $postfields['messages'] = $data->get('messages');    
                     $postfields['tools'] = $data->get('tools');    
                 }           
                 $postfields['stream'] = $data->extract('options.stream');
-                $data->extract('options.#property');
-                $data->extract('options.#property');
+                $data->extract('options.#property');                
                 $postfields['keep_alive'] = '30m';
                 $postfields['options'] = (array) $data->get('options');
                 //images
                 $options->source = $source;
+                d($url);
                 ddd($postfields);
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 Core::interactive();
