@@ -307,15 +307,17 @@ trait Main {
                 ]);
                 $data->data($parse->compile($data->data(), $object->data()));
                 if(
-                    str_contains('generate', $url)
+                    str_contains('/generate', $url)
                 ){
                     $postfields['prompt'] = $data->get('prompt');    
+                    d('y1');
                 }
                 if(
-                    str_contains('chat', $url)
+                    str_contains('/chat', $url)
                 ){                    
                     $postfields['messages'] = $data->get('messages');    
                     $postfields['tools'] = $data->get('tools');    
+                    d('y2');
                 }           
                 $postfields['stream'] = $data->extract('options.stream');
                 $data->extract('options.#property');                
