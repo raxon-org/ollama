@@ -303,8 +303,7 @@ trait Main {
                 */
                 $parse->limit([
                     'File.read'
-                ]);
-                d($data->data());
+                ]);                
                 $data->data($parse->compile($data->data(), $object->data()));                
                 if(
                     str_contains($url, '/generate')
@@ -316,8 +315,7 @@ trait Main {
                 ){                    
                     $postfields['messages'] = $data->get('messages');    
                     $postfields['tools'] = $data->get('tools');    
-                    $postfields['think'] = $data->get('think') ?? false;         
-                    ddd($postfields);              
+                    $postfields['think'] = $data->get('think') ?? false;                             
                 }           
                 $postfields['stream'] = $data->extract('options.stream');
                 $data->extract('options.#property');                
