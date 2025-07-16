@@ -315,7 +315,8 @@ trait Main {
                 ){                    
                     $postfields['messages'] = $data->get('messages');    
                     $postfields['tools'] = $data->get('tools');    
-                    $postfields['think'] = $data->get('think') ?? false;                       
+                    $postfields['think'] = $data->get('think') ?? false;         
+                    ddd($postfields);              
                 }           
                 $postfields['stream'] = $data->extract('options.stream');
                 $data->extract('options.#property');                
