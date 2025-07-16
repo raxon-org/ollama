@@ -305,6 +305,7 @@ trait Main {
                     'File.read'
                 ]);
                 $data->data($parse->compile($data->data(), $object->data()));
+                ddd($data);
                 if(
                     str_contains($url, '/generate')
                 ){
