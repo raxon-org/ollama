@@ -1,5 +1,5 @@
 {{$response = Package.Raxon.Ollama:Main:stop(flags(), options())}}
 {{if($response)}}
-{{$response|object:'json'}}
+{{$response|>object:'json'}}
 
 {{/if}}
