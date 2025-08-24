@@ -22,8 +22,7 @@ class Cli extends Controller {
     const DIR = __DIR__ . '/';
     const MODULE_INFO = 'Info';
     const INFO = [
-        '{{binary()}} raxon/ollama                   | Parse options',
-        '{{binary()}} raxon/ollama setup             | Setup Parse',
+        '{{binary()}} raxon/ollama                   | Parse options',        
     ];
 
     /**
