@@ -248,6 +248,7 @@ trait Main {
                 unset($patch);
             }
             if($counter > 1800){
+                //memory leak detected on this long-running process.
                 //after 30 minutes of inactivity go to exit.
                 exit(0);
             }
