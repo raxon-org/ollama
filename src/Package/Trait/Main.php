@@ -247,15 +247,14 @@ trait Main {
                 $counter = 1;
                 unset($patch);
             }
-            if($counter > 600){
-                //after 10 minutes of inactivity go to 5 seconds
-                sleep(5);
-            }
-            elseif($counter > 1800){
+            if($counter > 1800){
                 //after 30 minutes of inactivity go to exit.
                 exit(0);
             }
-            else {
+            elseif($counter > 600){
+                //after 10 minutes of inactivity go to 5 seconds
+                sleep(5);
+            } else {
                 sleep(1);
             }
             unset($node);
