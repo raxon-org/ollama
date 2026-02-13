@@ -107,7 +107,7 @@ trait Main {
             $info = $this->info('ollama serve');
             if($info['pid'] === null){
                 //check retry strategy.
-                $command = 'ollama serve >> ' . $log .' &';
+                $command = 'OLLAMA_CONTEXT_LENGTH=128000 ollama serve >> ' . $log .' &';
                 Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
                 echo $output;
             }
