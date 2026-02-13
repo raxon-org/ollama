@@ -96,7 +96,7 @@ trait Main {
      */
     public function guard($flags, $options): void {
         $object = $this->object();
-
+        $context_length = $options->context_length ?? 4096;
         $log = $object->config('project.dir.log') . 'ollama.log';
         File::touch($log, File::CHMOD);
         File::permission($object, [
@@ -107,7 +107,7 @@ trait Main {
             $info = $this->info('ollama serve');
             if($info['pid'] === null){
                 //check retry strategy.
-                $command = 'OLLAMA_CONTEXT_LENGTH=128000 ollama serve >> ' . $log .' &';
+                $command = 'OLLAMA_CONTEXT_LENGTH='.  $context_length .' ollama serve >> ' . $log .' &';
                 Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
                 echo $output;
             }
