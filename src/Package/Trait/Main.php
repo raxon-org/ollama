@@ -145,7 +145,15 @@ trait Main {
                     break;
                 }
             }
-            $command = 'app raxon/ollama guard &';
+            $command_options = '';
+            foreach($options as $key => $value){
+                $command_options .= ' -' . $key . '=' . $value;
+            }
+            $command_flags = '';
+            foreach($flags as $key => $value){
+                $command_flags .= ' --' . $key . '=' . $value;
+            }
+            $command = 'app raxon/ollama guard '. $command_options . ' ' . $command_flags .'&';
             Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
             if(is_array($output)){
                 echo implode(PHP_EOL, $output);
