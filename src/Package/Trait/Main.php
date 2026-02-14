@@ -339,7 +339,6 @@ trait Main {
                 //images
                 $options->source = $source;                
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
-                ddd($post);
                 Core::interactive();
 
 //
