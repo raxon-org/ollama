@@ -403,8 +403,8 @@ trait Main {
                 $possible_error = end($source);
                 if(str_starts_with($possible_error, '{"error"')){
                     $error = Core::object(trim($possible_error));
-                    $patch['notification'] = $patch['notification'] ?? [];
-                    $patch['notification'][] = $error;
+                    $patch['error'] = $patch['error'] ?? [];
+                    $patch['error'][] = $error;
                 }
                 $patch = $node->patch($class, $role, $patch);
             }
