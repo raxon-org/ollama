@@ -319,19 +319,25 @@ trait Main {
                 if(
                     str_contains($url, '/generate')
                 ){
-                    $postfields['prompt'] = $data->get('prompt');                        
+                    $postfields['prompt'] = $data->get('prompt');
+                    $postfields['keep_alive'] = '30m';
+                    $postfields['options'] = (array) $data->get('options');
                 }
-                if(
+                elseif(
                     str_contains($url, '/chat')
                 ){                    
                     $postfields['messages'] = $data->get('messages');    
                     $postfields['tools'] = $data->get('tools');    
-                    $postfields['think'] = $data->get('think') ?? false;                             
-                }           
+                    $postfields['think'] = $data->get('think') ?? false;
+                    $postfields['keep_alive'] = '30m';
+                    $postfields['options'] = (array) $data->get('options');
+                }
+                elseif(str_contains($url, '/embedding')){
+                    $postfields['input'] = $data->get('input');
+                }
                 $postfields['stream'] = $data->extract('options.stream');
                 $data->extract('options.#property');                
-                $postfields['keep_alive'] = '30m';
-                $postfields['options'] = (array) $data->get('options');
+
                 //images
                 $options->source = $source;                
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
