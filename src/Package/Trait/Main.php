@@ -323,6 +323,7 @@ trait Main {
                     $postfields['keep_alive'] = '30m';
                     $postfields['think'] = $data->get('think') ?? false;
                     $postfields['options'] = (array) $data->get('options');
+                    $postfields['stream'] = $data->extract('options.stream');
                 }
                 elseif(
                     str_contains($url, '/chat')
@@ -332,11 +333,12 @@ trait Main {
                     $postfields['think'] = $data->get('think') ?? false;
                     $postfields['keep_alive'] = '30m';
                     $postfields['options'] = (array) $data->get('options');
+                    $postfields['stream'] = $data->extract('options.stream');
                 }
                 elseif(str_contains($url, '/embedding')){
                     $postfields['input'] = $data->get('prompt');
                 }
-                $postfields['stream'] = $data->extract('options.stream');
+                ddd($postfields);
                 //images
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 File::write($options->source . '_post', $post);
