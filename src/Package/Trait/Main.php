@@ -340,7 +340,6 @@ trait Main {
                 }
                 //images
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
-                File::write($options->source . '_post', $post);
                 Core::interactive();
                 $options->source = $source;
 //
