@@ -336,13 +336,12 @@ trait Main {
                     $postfields['input'] = $data->get('input');
                 }
                 $postfields['stream'] = $data->extract('options.stream');
-                $data->extract('options.#property');
-                $data->extract('#class');
-
                 //images
                 $options->source = $source;                
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
+                ddd($post);
                 Core::interactive();
+
 //
                 /*
                 $command =  'curl http://localhost:11434/api/generate -d \'' . str_replace('\'', '\\\'', $post) . '\' >> ' . $options->source . ' &';
