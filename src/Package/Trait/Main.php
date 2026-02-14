@@ -321,6 +321,7 @@ trait Main {
                 ){
                     $postfields['prompt'] = $data->get('prompt');
                     $postfields['keep_alive'] = '30m';
+                    $postfields['think'] = $data->get('think') ?? false;
                     $postfields['options'] = (array) $data->get('options');
                 }
                 elseif(
@@ -337,10 +338,10 @@ trait Main {
                 }
                 $postfields['stream'] = $data->extract('options.stream');
                 //images
-                $options->source = $source;                
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
+                File::write($options->source . '_post', $post);
                 Core::interactive();
-
+                $options->source = $source;
 //
                 /*
                 $command =  'curl http://localhost:11434/api/generate -d \'' . str_replace('\'', '\\\'', $post) . '\' >> ' . $options->source . ' &';
