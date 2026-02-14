@@ -134,13 +134,15 @@ trait Main {
             echo 'Ollama serve already running...' . PHP_EOL;
             return;
         }
+        $output = '';
+        $notification = '';
         if($info['pid'] === null){
             //check retry strategy.
             while(true){
                 $info = $this->info('raxon/ollama guard');
                 if($info['pid'] !== null){
                     $command = 'kill  ' . escapeshellcmd($info['pid']);
-                    exec($command, $output);
+                    exec($command);
                 } else {
                     break;
                 }
@@ -155,10 +157,11 @@ trait Main {
             }
             $command = 'app raxon/ollama guard '. $command_options . ' ' . $command_flags .'&';
             Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
-            if(is_array($output)){
-                echo implode(PHP_EOL, $output);
-            } else {
+            if($output){
                 echo $output;
+            }
+            if($notification){
+                echo $notification;
             }
         }
         exit(0);
