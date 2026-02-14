@@ -333,7 +333,7 @@ trait Main {
                     $postfields['options'] = (array) $data->get('options');
                 }
                 elseif(str_contains($url, '/embedding')){
-                    $postfields['input'] = $data->get('input');
+                    $postfields['input'] = $data->get('prompt');
                 }
                 $postfields['stream'] = $data->extract('options.stream');
                 //images
