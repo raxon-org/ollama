@@ -336,7 +336,8 @@ trait Main {
                     $postfields['input'] = $data->get('input');
                 }
                 $postfields['stream'] = $data->extract('options.stream');
-                $data->extract('options.#property');                
+                $data->extract('options.#property');
+                $data->extract('options.#class');
 
                 //images
                 $options->source = $source;                
