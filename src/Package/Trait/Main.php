@@ -314,7 +314,8 @@ trait Main {
                 */
                 $parse->limit([
                     'File.read'
-                ]);                
+                ]);
+                ddd($data);
                 $data->data($parse->compile($data->data(), $object->data()));                
                 if(
                     str_contains($url, '/generate')
