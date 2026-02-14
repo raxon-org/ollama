@@ -399,8 +399,13 @@ trait Main {
 
                 $class = 'Raxon.Ollama.Input';
                 $role = $node->role_system();
-                $source = File::read($options->source);
-                ddd($source);
+                $source = File::read($options->source, ['return' => 'array']);
+                $possible_error = end($source);
+                if(str_starts_with($possible_error, '{"error"')){
+                    $error = Core::object(trim($possible_error));
+                    $patch['notification'] = $patch['notification'] ?? [];
+                    $patch['notification'][] = $error;
+                }
                 $patch = $node->patch($class, $role, $patch);
             }
         }
