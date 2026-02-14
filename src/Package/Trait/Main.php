@@ -338,7 +338,6 @@ trait Main {
                 elseif(str_contains($url, '/embedding')){
                     $postfields['input'] = $data->get('prompt');
                 }
-                ddd($postfields);
                 //images
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                 File::write($options->source . '_post', $post);
