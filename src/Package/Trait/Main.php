@@ -338,73 +338,86 @@ trait Main {
                     $postfields['options'] = (array) $data->get('options');
                     $postfields['stream'] = $data->extract('options.stream');
                 }
-                elseif(str_contains($url, '/embed')){
-                    $postfields['input'] = $data->get('prompt');
-                }
-                //images?
-                $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
-                File::append($options->source, $post);
-                Core::interactive();
-                $options->source = $source;
-                $chunks = [];
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url); // Set the URL of the localhost
-                curl_setopt($ch, CURLOPT_POST, true); // Set the POST method
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post); // Set the POST fields
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, false); // Disable CURLOPT_RETURNTRANSFER to output directly // Set option to receive data in chunks
-                curl_setopt($ch, CURLOPT_TIMEOUT, 2 * 3600);           // 120 minutes for the full request
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);    // 10 seconds for the connection
-                curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, $uuid) {
-                    $chunks[] = $chunk;
-                    File::append($options->source, $chunk);
-                    $time_current = microtime(true);
-                    /*
-                    if($time_current - $object->config('ollama.time.start') > 2){
-                        $object->config('ollama.time.start', $time_current);
-                        $node = new Node($object);
-                        $class = 'Raxon.Ollama.Input';
-                        $role = $node->role_system();
-                        $record = $node->read($class, $node->role_system(), [
-                            'uuid'  => $uuid,
-                        ]);
-                        if(
-                            $record &&
-                            array_key_exists('node', $record) &&
-                            property_exists($record['node'], 'status') &&
-                            $record['node']->status === 'abort'
-                        ){
-                            $patch = [
-                                'uuid' => $uuid,
-                                'status' => 'aborted',
-                                'chunks' => $chunks
-                            ];
+                if(str_contains($url, '/embed')){
+//                    $postfields['input'] = $data->get('prompt');
+                    $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url); // Set the URL of the localhost
+                    curl_setopt($ch, CURLOPT_POST, true); // Set the POST method
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post); // Set the POST fields
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $response = curl_exec($ch);
+                    curl_close($ch);
+                    File::append($options->source, $response);
+                    $patch = [
+                        'uuid' => $uuid,
+                        'status' => 'finish',
+                        'response' => $response
+                    ];
+                } else {
+                    $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
+                    Core::interactive();
+                    $options->source = $source;
+                    $chunks = [];
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url); // Set the URL of the localhost
+                    curl_setopt($ch, CURLOPT_POST, true); // Set the POST method
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $post); // Set the POST fields
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false); // Disable CURLOPT_RETURNTRANSFER to output directly // Set option to receive data in chunks
+                    curl_setopt($ch, CURLOPT_TIMEOUT, 2 * 3600);           // 120 minutes for the full request
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);    // 10 seconds for the connection
+                    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, $uuid) {
+                        $chunks[] = $chunk;
+                        File::append($options->source, $chunk);
+                        $time_current = microtime(true);
+                        /*
+                        if($time_current - $object->config('ollama.time.start') > 2){
+                            $object->config('ollama.time.start', $time_current);
                             $node = new Node($object);
                             $class = 'Raxon.Ollama.Input';
                             $role = $node->role_system();
-                            $patch = $node->patch($class, $role, $patch);
-                            curl_close($ch);
-                            exit(0);
+                            $record = $node->read($class, $node->role_system(), [
+                                'uuid'  => $uuid,
+                            ]);
+                            if(
+                                $record &&
+                                array_key_exists('node', $record) &&
+                                property_exists($record['node'], 'status') &&
+                                $record['node']->status === 'abort'
+                            ){
+                                $patch = [
+                                    'uuid' => $uuid,
+                                    'status' => 'aborted',
+                                    'chunks' => $chunks
+                                ];
+                                $node = new Node($object);
+                                $class = 'Raxon.Ollama.Input';
+                                $role = $node->role_system();
+                                $patch = $node->patch($class, $role, $patch);
+                                curl_close($ch);
+                                exit(0);
+                            }
                         }
+                        */
+                        return strlen($chunk);
+                    });
+                    curl_exec($ch);
+                    // Check for errors
+                    if (curl_errno($ch)) {
+                        //restart ollama ? need to record curl errors and if 5 or more, or specific error like cannot connect to http server
+                        // restart ollama
+                        // app raxon/ollama stop (stops ollama)
+                        // app raxon/ollama start & (starts ollama)
+                        File::append($url_log, 'Curl error: ' . curl_error($ch) . PHP_EOL);
                     }
-                    */
-                    return strlen($chunk);
-                });
-                curl_exec($ch);
-                // Check for errors
-                if (curl_errno($ch)) {
-                    //restart ollama ? need to record curl errors and if 5 or more, or specific error like cannot connect to http server
-                    // restart ollama
-                    // app raxon/ollama stop (stops ollama)
-                    // app raxon/ollama start & (starts ollama)
-                    File::append($url_log, 'Curl error: ' . curl_error($ch) . PHP_EOL);
+                    // Close the cURL session
+                    curl_close($ch);
+                    $patch = [
+                        'uuid' => $uuid,
+                        'status' => 'finish',
+                        'chunks' => $chunks
+                    ];
                 }
-                // Close the cURL session
-                curl_close($ch);
-                $patch = [
-                    'uuid' => $uuid,
-                    'status' => 'finish',
-                    'chunks' => $chunks
-                ];
                 $node = new Node($object);
                 $class = 'Raxon.Ollama.Input';
                 $role = $node->role_system();
