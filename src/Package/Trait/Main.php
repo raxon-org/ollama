@@ -339,7 +339,7 @@ trait Main {
                     $postfields['stream'] = $data->extract('options.stream');
                 }
                 if(str_contains($url, '/embed')){
-//                    $postfields['input'] = $data->get('prompt');
+                    $postfields['input'] = $data->get('prompt');
                     $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url); // Set the URL of the localhost
