@@ -343,6 +343,7 @@ trait Main {
                 }
                 //images?
                 $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
+                File::append($options->source, $post);
                 Core::interactive();
                 $options->source = $source;
                 $chunks = [];
