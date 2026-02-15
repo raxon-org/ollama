@@ -352,7 +352,7 @@ trait Main {
                     $patch = [
                         'uuid' => $uuid,
                         'status' => 'finish',
-                        'response' => $response
+                        'response' => Core::object($response)
                     ];
                 } else {
                     $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
