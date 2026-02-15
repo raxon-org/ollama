@@ -300,6 +300,7 @@ trait Main {
             ini_set('max_execution_time', 3600);
             set_time_limit(3600);
             if($data){
+                $object->config('ollama.time.start', microtime(true));
                 $url = $data->get('endpoint');            
                 $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');                
@@ -355,27 +356,31 @@ trait Main {
                 curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk, $object, $uuid) use ($options) {
                     $chunks[] = $chunk;
                     File::append($options->source, $chunk);
-                    $node = new Node($object);
-                    $class = 'Raxon.Ollama.Input';
-                    $role = $node->role_system();
-                    $record = $node->record($class, $role, ['where' => '"uuid" === "' . $uuid . '"']);
-                    if(
-                        $record &&
-                        array_key_exists('node', $record) &&
-                        property_exists($record['node'], 'status') &&
-                        $record['node']->status === 'abort'
-                    ){
-                        $patch = [
-                            'uuid' => $uuid,
-                            'status' => 'aborted',
-                            'chunks' => $chunks
-                        ];
+                    $time_current = microtime(true);
+                    if($time_current - $object->config('ollama.time.start') > 2){
+                        $object->config('ollama.time.start', $time_current);
                         $node = new Node($object);
                         $class = 'Raxon.Ollama.Input';
                         $role = $node->role_system();
-                        $patch = $node->patch($class, $role, $patch);
-                        curl_close($ch);
-                        exit(0);
+                        $record = $node->record($class, $role, ['where' => '"uuid" === "' . $uuid . '"']);
+                        if(
+                            $record &&
+                            array_key_exists('node', $record) &&
+                            property_exists($record['node'], 'status') &&
+                            $record['node']->status === 'abort'
+                        ){
+                            $patch = [
+                                'uuid' => $uuid,
+                                'status' => 'aborted',
+                                'chunks' => $chunks
+                            ];
+                            $node = new Node($object);
+                            $class = 'Raxon.Ollama.Input';
+                            $role = $node->role_system();
+                            $patch = $node->patch($class, $role, $patch);
+                            curl_close($ch);
+                            exit(0);
+                        }
                     }
                     return strlen($chunk);
                 });
