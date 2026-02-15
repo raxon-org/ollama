@@ -34,6 +34,34 @@
       {
         "name": "#class",
         "type": "string"
+      },
+      {
+        "name": "endpoint",
+        "type": "string"
+      },
+      {
+        "name": "response",
+        "type": "string"
+      },
+      {
+        "name": "chunks",
+        "type": "array"
+      },
+      {
+        "name": "error",
+        "type": "array"
+      },
+      {
+        "name": "think",
+        "type": "array"
+      },
+      {
+        "name": "tools",
+        "type": "array"
+      },
+      {
+        "name": "messages",
+        "type": "array"
       }
     ]
   },
