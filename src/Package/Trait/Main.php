@@ -353,7 +353,7 @@ trait Main {
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, false); // Disable CURLOPT_RETURNTRANSFER to output directly // Set option to receive data in chunks
                 curl_setopt($ch, CURLOPT_TIMEOUT, 2 * 3600);           // 120 minutes for the full request
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);    // 10 seconds for the connection
-                curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk, $object, $uuid) use ($options) {
+                curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, $uuid) {
                     $chunks[] = $chunk;
                     File::append($options->source, $chunk);
                     $time_current = microtime(true);
@@ -363,7 +363,9 @@ trait Main {
                         $node = new Node($object);
                         $class = 'Raxon.Ollama.Input';
                         $role = $node->role_system();
-                        $record = $node->record($class, $role, ['where' => '"uuid" === "' . $uuid . '"']);
+                        $record = $node->read($class, $node->role_system(), [
+                            'uuid'  => $uuid,
+                        ]);
                         if(
                             $record &&
                             array_key_exists('node', $record) &&
