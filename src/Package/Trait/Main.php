@@ -371,6 +371,7 @@ trait Main {
                         $chunks[] = $chunk;
                         File::append($options->source, $chunk);
                         $time_current = microtime(true);
+                        /*
                         if($time_current - $object->config('ollama.time.block') > 2){
                             $object->config('ollama.time.block', $time_current);
                             $node = new Node($object);
@@ -398,6 +399,7 @@ trait Main {
                                 exit(0);
                             }
                         }
+                        */
                         return strlen($chunk);
                     });
                     curl_exec($ch);
