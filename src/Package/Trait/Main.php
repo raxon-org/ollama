@@ -301,6 +301,7 @@ trait Main {
             set_time_limit(3600);
             if($data){
                 $object->config('ollama.time.start', microtime(true));
+                $object->config('ollama.time.block', 'ollama.time.start');
                 $url = $data->get('endpoint');            
                 $uuid = $data->get('uuid');
                 $postfields['model'] = $data->get('model');                
@@ -370,9 +371,8 @@ trait Main {
                         $chunks[] = $chunk;
                         File::append($options->source, $chunk);
                         $time_current = microtime(true);
-                        /*
-                        if($time_current - $object->config('ollama.time.start') > 2){
-                            $object->config('ollama.time.start', $time_current);
+                        if($time_current - $object->config('ollama.time.block') > 2){
+                            $object->config('ollama.time.block', $time_current);
                             $node = new Node($object);
                             $class = 'Raxon.Ollama.Input';
                             $role = $node->role_system();
@@ -398,7 +398,6 @@ trait Main {
                                 exit(0);
                             }
                         }
-                        */
                         return strlen($chunk);
                     });
                     curl_exec($ch);
