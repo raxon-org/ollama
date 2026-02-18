@@ -296,7 +296,7 @@ trait Main {
                 $data = false;
             }
 
-            $postfields = [];
+            $curl_post = [];
             ini_set('max_execution_time', 3600);
             set_time_limit(3600);
             if($data){
@@ -304,7 +304,7 @@ trait Main {
                 $object->config('ollama.time.block', 'ollama.time.start');
                 $url = $data->get('endpoint');            
                 $uuid = $data->get('uuid');
-                $postfields['model'] = $data->get('model');                
+                $curl_post['model'] = $data->get('model');
                 $parseData = new Data($object->data());
                 $source = $options->source;
                 $options->source = 'Internal_' . hash('sha256', $url);
@@ -323,25 +323,25 @@ trait Main {
                 if(
                     str_contains($url, '/generate')
                 ){
-                    $postfields['prompt'] = $data->get('prompt');
-                    $postfields['keep_alive'] = '30m';
-                    $postfields['think'] = $data->get('think') ?? false;
-                    $postfields['options'] = (array) $data->get('options');
-                    $postfields['stream'] = $data->extract('options.stream');
+                    $curl_post['prompt'] = $data->get('prompt');
+                    $curl_post['keep_alive'] = '30m';
+                    $curl_post['think'] = $data->get('think') ?? false;
+                    $curl_post['options'] = (array) $data->get('options');
+                    $curl_post['stream'] = $data->extract('options.stream');
                 }
                 elseif(
                     str_contains($url, '/chat')
-                ){                    
-                    $postfields['messages'] = $data->get('messages');    
-                    $postfields['tools'] = $data->get('tools');    
-                    $postfields['think'] = $data->get('think') ?? false;
-                    $postfields['keep_alive'] = '30m';
-                    $postfields['options'] = (array) $data->get('options');
-                    $postfields['stream'] = $data->extract('options.stream');
+                ){
+                    $curl_post['messages'] = $data->get('messages');
+                    $curl_post['tools'] = $data->get('tools');
+                    $curl_post['think'] = $data->get('think') ?? false;
+                    $curl_post['keep_alive'] = '30m';
+                    $curl_post['options'] = (array) $data->get('options');
+                    $curl_post['stream'] = $data->extract('options.stream');
                 }
                 if(str_contains($url, '/embed')){
-                    $postfields['input'] = $data->get('prompt');
-                    $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
+                    $curl_post['input'] = $data->get('prompt');
+                    $post = Core::object($curl_post, Core::OBJECT_JSON_LINE);
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url); // Set the URL of the localhost
                     curl_setopt($ch, CURLOPT_POST, true); // Set the POST method
@@ -356,9 +356,10 @@ trait Main {
                         'response' => Core::object($response)
                     ];
                 } else {
-                    $post = Core::object($postfields, Core::OBJECT_JSON_LINE);
+                    $post = Core::object($curl_post, Core::OBJECT_JSON_LINE);
                     Core::interactive();
                     $options->source = $source;
+                    $options->abort = $object->config('ramdisk.url') . '33/Ollama/' . $uuid . '.abort';
                     $chunks = [];
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url); // Set the URL of the localhost
@@ -367,7 +368,7 @@ trait Main {
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, false); // Disable CURLOPT_RETURNTRANSFER to output directly // Set option to receive data in chunks
                     curl_setopt($ch, CURLOPT_TIMEOUT, 2 * 3600);           // 120 minutes for the full request
                     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);    // 10 seconds for the connection
-                    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, $uuid, &$chunks) {
+                    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, &$chunks) {
                         $chunks[] = $chunk;
                         File::append($options->source, $chunk);
                         $time_current = microtime(true);
