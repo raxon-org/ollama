@@ -359,6 +359,7 @@ trait Main {
                     $post = Core::object($curl_post, Core::OBJECT_JSON_LINE);
                     Core::interactive();
                     $options->source = $source;
+                    $options->uuid = $uuid;
                     $options->abort = $object->config('ramdisk.url') . '33/Ollama/' . $uuid . '.abort';
                     $chunks = [];
                     $ch = curl_init();
@@ -371,6 +372,19 @@ trait Main {
                     curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, &$chunks) {
                         $chunks[] = $chunk;
                         File::append($options->source, $chunk);
+                        if(File::exist($options->abort)){
+                            curl_close($ch);
+                            $patch = [
+                                'uuid' => $options->uuid,
+                                'status' => 'aborted',
+                                'chunks' => $chunks
+                            ];
+                            $node = new Node($object);
+                            $class = 'Raxon.Ollama.Input';
+                            $role = $node->role_system();
+                            $patch = $node->patch($class, $role, $patch);
+                            exit(0);
+                        }
                         $time_current = microtime(true);
                         /*
                         if($time_current - $object->config('ollama.time.block') > 2){
