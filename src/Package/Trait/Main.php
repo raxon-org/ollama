@@ -105,15 +105,11 @@ trait Main {
         echo 'Starting guarding ollama serve...' . PHP_EOL;
         while(true){
             $info = $this->info('ollama serve');
-            File::append($log, Core::object($info, Core::OBJECT_JSON_LINE) . PHP_EOL);
             if($info['pid'] === null){
                 //check retry strategy.
-                $command = 'ollama serve >> ' . $log .' &';
-                shell_exec($command);
-//                Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
-//                echo $output;
-//                File::append($log, $output . PHP_EOL);
-//                File::append($log, $notification . PHP_EOL);
+                $command = 'OLLAMA_CONTEXT_LENGTH='.  $context_length .' ollama serve >> ' . $log .' &';
+                Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
+                echo $output;
             }
             $info = $this->info('raxon/ollama process');
             if($info['pid'] === null){
