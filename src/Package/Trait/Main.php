@@ -108,7 +108,7 @@ trait Main {
             File::append($log, Core::object($info, Core::OBJECT_JSON_LINE) . PHP_EOL);
             if($info['pid'] === null){
                 //check retry strategy.
-                $command = 'OLLAMA_CONTEXT_LENGTH='.  $context_length .' ollama serve >> ' . $log .' &';
+                $command = 'ollama serve >> ' . $log .' &';
                 Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
                 echo $output;
                 File::append($log, $output . PHP_EOL);
