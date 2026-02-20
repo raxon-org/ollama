@@ -105,6 +105,7 @@ trait Main {
         echo 'Starting guarding ollama serve...' . PHP_EOL;
         while(true){
             $info = $this->info('ollama serve');
+            File::append($log, Core::object($info, Core::OBJECT_JSON_LINE) . PHP_EOL);
             if($info['pid'] === null){
                 //check retry strategy.
                 $command = 'OLLAMA_CONTEXT_LENGTH='.  $context_length .' ollama serve >> ' . $log .' &';
