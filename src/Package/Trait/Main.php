@@ -111,6 +111,8 @@ trait Main {
                 $command = 'OLLAMA_CONTEXT_LENGTH='.  $context_length .' ollama serve >> ' . $log .' &';
                 Core::execute($object, $command, $output, $notification, Core::SHELL_PROCESS);
                 echo $output;
+                File::append($log, $output . PHP_EOL);
+                File::append($log, $notification . PHP_EOL);
             }
             $info = $this->info('raxon/ollama process');
             if($info['pid'] === null){
