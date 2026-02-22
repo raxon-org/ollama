@@ -167,6 +167,25 @@ trait Main {
         exit(0);
     }
 
+    public function kill($flags, $options): void
+    {
+        $info = $this->info('ollama serve');
+        if($info['pid'] !== null){
+            //check retry strategy.
+            $command = 'kill  ' . escapeshellcmd($info['pid']);
+            exec($command, $output);
+            echo implode(PHP_EOL, $output);
+        }
+        sleep(1);
+        $info = $this->info('ollama serve');
+        if($info['pid'] !== null){
+            //check retry strategy.
+            $command = 'kill  ' . escapeshellcmd($info['pid']);
+            exec($command, $output);
+            echo implode(PHP_EOL, $output);
+        }
+    }
+
     public function stop($flags, $options): void {
         //remove guards first in a while loop
         while(true){
