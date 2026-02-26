@@ -5,7 +5,7 @@ use Raxon\Module\Dir;
 
 trait Setup {
 
-    public function ollama_install(string $command = ''): void
+    public function install_ollama(string $command = ''): void
     {
         if(!Dir::exist('/root/.ollama/')){
             $command = 'curl -fsSL https://ollama.com/install.sh | sh';
