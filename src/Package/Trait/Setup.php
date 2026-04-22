@@ -10,10 +10,11 @@ trait Setup {
     {
         if(!Dir::exist('/root/.ollama/')){
             Core::interactive();
+            echo 'Downloading Ollama...' . PHP_EOL;
             $command = 'curl -fsSL https://ollama.com/install.sh | sh';
             exec($command, $output);
             echo implode(PHP_EOL, $output);
-            $this->pull_model($flags, $options);
+//            $this->pull_model($flags, $options);
         }
     }
 
