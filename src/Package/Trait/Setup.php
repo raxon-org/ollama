@@ -8,6 +8,7 @@ trait Setup {
 
     public function install_ollama(object $flags, object $options): void
     {
+        /*
         if(!Dir::exist('/root/.ollama/')){
             Core::interactive();
             echo 'Downloading Ollama...' . PHP_EOL;
@@ -16,6 +17,7 @@ trait Setup {
             echo implode(PHP_EOL, $output);
 //            $this->pull_model($flags, $options);
         }
+        */
     }
 
     public function pull_model(object $flags, object $options): void
