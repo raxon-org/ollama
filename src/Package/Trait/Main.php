@@ -407,12 +407,10 @@ trait Main {
                                     'updated' => date('Y-m-d H:i:s')
                                 ]
                             ];
-                            d($patch);
                             $node = new Node($object);
                             $class = 'Raxon.Ollama.Input';
                             $role = $node->role_system();
                             $patch = $node->patch($class, $role, $patch);
-                            ddd($patch);
                             exit(0);
                         }
                         $time_current = microtime(true);
@@ -477,7 +475,9 @@ trait Main {
                     $patch['error'] = $patch['error'] ?? [];
                     $patch['error'][] = $error->error ?? null;
                 }
+                d($patch);
                 $patch = $node->patch($class, $role, $patch);
+                ddd($patch);
             }
         }
     }
