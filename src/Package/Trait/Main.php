@@ -236,7 +236,7 @@ trait Main {
                     'status' => 'start'
                 ],
                 'sort' => [
-
+                    'is.created' => 'desc'
                 ]
             ];
             $input = $node->record($class, $role, $options_input);
@@ -375,7 +375,10 @@ trait Main {
                     $patch = [
                         'uuid' => $uuid,
                         'status' => 'finish',
-                        'response' => Core::object($response)
+                        'response' => Core::object($response),
+                        'is' => [
+                            'updated' => date('Y-m-d H:i:s')
+                        ]
                     ];
                 } else {
                     $post = Core::object($curl_post, Core::OBJECT_JSON_LINE);
@@ -399,7 +402,10 @@ trait Main {
                             $patch = [
                                 'uuid' => $options->uuid,
                                 'status' => 'aborted',
-                                'chunks' => $chunks
+                                'chunks' => $chunks,
+                                'is' => [
+                                    'updated' => date('Y-m-d H:i:s')
+                                ]
                             ];
                             $node = new Node($object);
                             $class = 'Raxon.Ollama.Input';
@@ -453,7 +459,10 @@ trait Main {
                     $patch = [
                         'uuid' => $uuid,
                         'status' => 'finish',
-                        'chunks' => $chunks
+                        'chunks' => $chunks,
+                        'is' => [
+                            'updated' => date('Y-m-d H:i:s')
+                        ]
                     ];
                 }
                 $node = new Node($object);
