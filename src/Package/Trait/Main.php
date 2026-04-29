@@ -377,7 +377,7 @@ trait Main {
                         'status' => 'finish',
                         'response' => Core::object($response),
                         'is' => [
-                            'updated' => date('Y-m-d H:i:s')
+                            'updated' => microtime(true)
                         ]
                     ];
                 } else {
@@ -404,7 +404,7 @@ trait Main {
                                 'status' => 'aborted',
                                 'chunks' => $chunks,
                                 'is' => [
-                                    'updated' => date('Y-m-d H:i:s')
+                                    'updated' => microtime(true)
                                 ]
                             ];
                             $node = new Node($object);
@@ -461,7 +461,7 @@ trait Main {
                         'status' => 'finish',
                         'chunks' => $chunks,
                         'is' => [
-                            'updated' => date('Y-m-d H:i:s')
+                            'updated' => microtime(true)
                         ]
                     ];
                 }

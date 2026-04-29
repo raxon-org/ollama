@@ -69,15 +69,15 @@
         "property": [
           {
             "name": "created",
-            "type": "string"
+            "type": "float"
           },
           {
             "name": "updated",
-            "type": "string"
+            "type": "float"
           },
           {
             "name": "deleted",
-            "type": "string"
+            "type": "float"
           }
         ]
       }
