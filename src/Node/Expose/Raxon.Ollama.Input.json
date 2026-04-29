@@ -28,7 +28,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -67,7 +67,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -109,7 +109,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -148,7 +148,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -191,7 +191,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -230,7 +230,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -273,7 +273,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -312,7 +312,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -355,7 +355,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -394,7 +394,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -437,7 +437,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -475,7 +475,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -517,7 +517,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -556,7 +556,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -599,7 +599,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
@@ -638,7 +638,7 @@
                                   "multiple": false,
                                   "output": [
                                     "created",
-                                    "updated",
+                                    "modified",
                                     "deleted"
                                   ]
                                 },
