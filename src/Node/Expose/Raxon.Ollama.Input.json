@@ -20,9 +20,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -50,9 +59,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -61,7 +79,6 @@
                                     "multiple": false,
                                     "dynamic": true
                                 }
-
                             }
                         }
                     ]
@@ -84,9 +101,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -114,9 +140,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -148,9 +183,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -178,9 +222,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -212,9 +265,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -242,9 +304,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -276,9 +347,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -306,9 +386,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -340,9 +429,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -351,7 +449,6 @@
                                     "multiple": false,
                                     "dynamic": true
                                 }
-
                             }
                         },
                         {
@@ -370,9 +467,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -381,7 +487,6 @@
                                     "multiple": false,
                                     "dynamic": true
                                 }
-
                             }
                         }
                     ]
@@ -404,9 +509,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -434,9 +548,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -468,9 +591,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -498,9 +630,18 @@
                                 "error",
                                 "response",
                                 "chunks",
+                                "is",
                                 "#class"
                             ],
                             "object": {
+                                "is": {
+                                  "multiple": false,
+                                  "output": [
+                                    "created",
+                                    "updated",
+                                    "deleted"
+                                  ]
+                                },
                                 "options": {
                                     "multiple": false,
                                     "dynamic": true
@@ -509,7 +650,6 @@
                                     "multiple": false,
                                     "dynamic": true
                                 }
-
                             }
                         }
                     ]

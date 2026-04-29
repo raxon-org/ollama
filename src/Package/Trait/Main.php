@@ -234,6 +234,9 @@ trait Main {
             $options_input = [
                 'filter' => [
                     'status' => 'start'
+                ],
+                'sort' => [
+
                 ]
             ];
             $input = $node->record($class, $role, $options_input);

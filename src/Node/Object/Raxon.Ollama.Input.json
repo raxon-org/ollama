@@ -62,6 +62,24 @@
       {
         "name": "messages",
         "type": "array"
+      },
+      {
+        "name": "is",
+        "type": "object",
+        "property": [
+          {
+            "name": "created",
+            "type": "string"
+          },
+          {
+            "name": "updated",
+            "type": "string"
+          },
+          {
+            "name": "deleted",
+            "type": "string"
+          }
+        ]
       }
     ]
   },
