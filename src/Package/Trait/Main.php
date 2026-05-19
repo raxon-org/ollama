@@ -167,6 +167,23 @@ trait Main {
         exit(0);
     }
 
+    /**
+     * @throws Exception
+     */
+    public function reset($flags, $options): void {
+        /*
+         * "mv /root/.ollama/models /root/.ollama/models.local",
+            "ln -s /mnt/Disk2/Media/Ollama/models /root/.ollama/models",
+         */
+        if(!File::exist('/root/.ollama')){
+            Dir::create('/root/.ollama', Dir::CHMOD);
+            File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
+        } else {
+            File::move('/root/.ollama/models', '/root/.ollama/models.local');
+            File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
+        }
+    }
+
     public function kill($flags, $options): void
     {
         $info = $this->info('ollama serve');
