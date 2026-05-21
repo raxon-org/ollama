@@ -179,8 +179,23 @@ trait Main {
             Dir::create('/root/.ollama', Dir::CHMOD);
             File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
         } else {
-            File::move('/root/.ollama/models', '/root/.ollama/models.local');
-            File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
+            /*
+            if(File::exist('/root/.ollama/models.local') && File::is_link('/root/.ollama/models')){
+                File::delete('/root/.ollama/models.local');
+                File::rename('/root/.ollama/models', '/root/.ollama/models.local', true);
+            }
+            */
+            if(
+                !File::exist('/root/.ollama/models') ||
+                !File::is_link('/root/.ollama/models')
+            ) {
+                if(!File::exist('/root/.ollama/models.local') && File::exist('/root/.ollama/models')){
+                    File::rename('/root/.ollama/models', '/root/.ollama/models.local', true);
+                }
+                if(!File::is_link('/root/.ollama/models')){
+                    File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
+                }
+            }
         }
     }
 
