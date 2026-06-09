@@ -203,6 +203,13 @@ trait Main {
         }
     }
 
+    public function abort($flags, $options): void
+    {
+        dd($options);
+//        $options->abort = $object->config('ramdisk.url') . '33/Ollama/' . $uuid . '.abort';
+    }
+
+
     public function kill($flags, $options): void
     {
         $info = $this->info('ollama serve');
@@ -433,7 +440,10 @@ trait Main {
                     curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, &$chunks) {
                         $chunks[] = $chunk;
                         File::append($options->source, $chunk);
-                        if(File::exist($options->abort)){
+                        if(
+                            count($chunks) % 4 === 0 &&
+                            File::exist($options->abort)
+                        ){
                             curl_close($ch);
                             $patch = [
                                 'uuid' => $options->uuid,
@@ -511,9 +521,7 @@ trait Main {
                     $patch['error'] = $patch['error'] ?? [];
                     $patch['error'][] = $error->error ?? null;
                 }
-                d($patch);
                 $patch = $node->patch($class, $role, $patch);
-                ddd($patch);
             }
         }
     }
