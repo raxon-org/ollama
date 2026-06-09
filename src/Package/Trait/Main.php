@@ -457,6 +457,7 @@ trait Main {
                             $class = 'Raxon.Ollama.Input';
                             $role = $node->role_system();
                             $patch = $node->patch($class, $role, $patch);
+                            File::delete($options->abort);
                             exit(0);
                         }
                         $time_current = microtime(true);
