@@ -441,7 +441,7 @@ trait Main {
                         $chunks[] = $chunk;
                         File::append($options->source, $chunk);
                         if(
-                            count($chunks) % 4 === 0 &&
+                            count($chunks) % 2 === 0 &&
                             File::exist($options->abort)
                         ){
                             curl_close($ch);
