@@ -203,13 +203,6 @@ trait Main {
         }
     }
 
-    public function abort($flags, $options): void
-    {
-        dd($options);
-//        $options->abort = $object->config('ramdisk.url') . '33/Ollama/' . $uuid . '.abort';
-    }
-
-
     public function kill($flags, $options): void
     {
         $info = $this->info('ollama serve');
@@ -440,10 +433,7 @@ trait Main {
                     curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $chunk) use ($object, $options, &$chunks) {
                         $chunks[] = $chunk;
                         File::append($options->source, $chunk);
-                        if(
-                            count($chunks) % 2 === 0 &&
-                            File::exist($options->abort)
-                        ){
+                        if(File::exist($options->abort)){
                             curl_close($ch);
                             $patch = [
                                 'uuid' => $options->uuid,
@@ -457,7 +447,6 @@ trait Main {
                             $class = 'Raxon.Ollama.Input';
                             $role = $node->role_system();
                             $patch = $node->patch($class, $role, $patch);
-                            File::delete($options->abort);
                             exit(0);
                         }
                         $time_current = microtime(true);
