@@ -166,34 +166,25 @@ trait Main {
         }
         exit(0);
     }
-
-    /**
-     * @throws Exception
-     */
+    
     public function reset($flags, $options): void {
-        /*
-         * "mv /root/.ollama/models /root/.ollama/models.local",
-            "ln -s /mnt/Disk2/Media/Ollama/models /root/.ollama/models",
-         */
-        ddd(File::exist('/root/.ollama/'));
-        if(!File::exist('/root/.ollama')){
-            Dir::create('/root/.ollama', Dir::CHMOD);
-            File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
-        } else {
-            /*
-            if(File::exist('/root/.ollama/models.local') && File::is_link('/root/.ollama/models')){
-                File::delete('/root/.ollama/models.local');
-                File::rename('/root/.ollama/models', '/root/.ollama/models.local', true);
+        $dir_ollama = '/root/.ollama';
+        $dir_target = '/mnt/Disk2/Media/Ollama/models';
+        $dir_destination = '/root/.ollama/models';
+
+        if(File::exist($dir_ollama)){
+            if(!File::exist($dir_target)){
+                Dir::create('/root/.ollama', Dir::CHMOD);
             }
-            */
-            if(!File::is_link('/root/.ollama/models')) {
-                if(
-                    !File::exist('/root/.ollama/models.local') &&
-                    File::exist('/root/.ollama/models')
-                ){
-                    File::rename('/root/.ollama/models', '/root/.ollama/models.local', true);
-                }
-                File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
+            if(!File::exist($dir_destination)){
+                File::link($dir_target, $dir_destination);
+            }
+            elseif(
+                File::exist($dir_destination) &&
+                !File::is_link($dir_destination)
+            ){
+                File::remove($dir_destination);
+                File::link($dir_target, $dir_destination);
             }
         }
     }
