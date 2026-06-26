@@ -166,7 +166,7 @@ trait Main {
         }
         exit(0);
     }
-    
+
     public function reset($flags, $options): void {
         $dir_ollama = '/root/.ollama';
         $dir_target = '/mnt/Disk2/Media/Ollama/models';
@@ -183,7 +183,7 @@ trait Main {
                 File::exist($dir_destination) &&
                 !File::is_link($dir_destination)
             ){
-                File::remove($dir_destination);
+                Dir::remove($dir_destination);
                 File::link($dir_target, $dir_destination);
             }
         }
