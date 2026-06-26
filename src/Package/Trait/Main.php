@@ -175,6 +175,7 @@ trait Main {
          * "mv /root/.ollama/models /root/.ollama/models.local",
             "ln -s /mnt/Disk2/Media/Ollama/models /root/.ollama/models",
          */
+        ddd(File::exist('/root/.ollama/'));
         if(!File::exist('/root/.ollama')){
             Dir::create('/root/.ollama', Dir::CHMOD);
             File::link('/mnt/Disk2/Media/Ollama/models', '/root/.ollama/models');
