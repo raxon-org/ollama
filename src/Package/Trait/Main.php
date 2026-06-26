@@ -185,10 +185,7 @@ trait Main {
                 File::rename('/root/.ollama/models', '/root/.ollama/models.local', true);
             }
             */
-            if(
-                !File::exist('/root/.ollama/models') ||
-                !File::is_link('/root/.ollama/models')
-            ) {
+            if(!File::is_link('/root/.ollama/models')) {
                 if(
                     !File::exist('/root/.ollama/models.local') &&
                     File::exist('/root/.ollama/models') &&
