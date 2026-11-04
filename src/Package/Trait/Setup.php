@@ -4,7 +4,7 @@ namespace Package\Raxon\Ollama\Trait;
 use Exception;
 use Package\Raxon\Basic\Trait\Install;
 use Raxon\Exception\ObjectException;
-use Raxon\Module\Link;
+use Raxon\Module\Core;
 
 trait Setup {
 
