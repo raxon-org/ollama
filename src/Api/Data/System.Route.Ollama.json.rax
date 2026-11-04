@@ -1,0 +1,63 @@
+{
+    "System": {
+      "Route": [
+        {
+          "#class": "System.Route",
+          "name": "ollama-generate",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Ollama:generate",
+          "path": "/Ollama/Generate/",
+          "priority": 2037,
+          "method": [
+            "POST"
+          ]
+        },
+        {
+          "#class": "System.Route",
+          "name": "ollama-sse",
+          "path": "/Ollama/Sse/",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Ollama:sse",
+          "priority": 2038,
+          "method": [
+            "GET",
+            "POST"
+          ]
+        },
+        {
+          "#class": "System.Route",
+          "name": "ollama-queue",
+          "path": "/Ollama/Queue/",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Ollama:queue",
+          "priority": 2039,
+          "method": [
+            "GET",
+            "POST"
+          ]
+        },
+        {
+          "#class": "System.Route",
+          "name": "ollama-tool",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Ollama:tool",
+          "path": "\/Ollama\/Tool\/",
+          "priority": 2039,
+          "method": [
+            "POST"
+          ]
+        },
+        {
+          "#class": "System.Route",
+          "name": "ollama-abort",
+          "host": "{{options('backend.host')}}",
+          "controller": "Domain:{{app.controller.host(options('backend.host'))}}:Controller:Ollama:abort",
+          "path": "\/Ollama\/Abort\/",
+          "priority": 2039,
+          "method": [
+            "POST"
+          ]
+        }
+      ]
+    }
+}

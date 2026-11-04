@@ -1,0 +1,13 @@
+{
+  "System": {
+    "Server": {
+      "ContentType": [
+          {
+            "description": "Content-Type for Ollama file",
+            "content_type": "application\/json",
+            "extension": ".ollama"
+          }
+      ]
+    }
+  }
+}

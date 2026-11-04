@@ -1,0 +1,13 @@
+{
+  "System": {
+    "Server": {
+      "Extension": [
+          {
+            "description": "Ollama file",
+            "name": "ollama",
+            "extension": ".ollama"
+          }
+      ]
+    }
+  }
+}

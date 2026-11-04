@@ -1,0 +1,35 @@
+{
+  "System":{
+    "Application":[
+      {
+        "name": "Ollama",
+        "display": {
+          "name": "Ollama/Gui"
+        },
+        "package": "raxon/{{$this.name|>string.lowercase}}",
+        "route": {
+          "name": "application-ollama-manager"
+        },
+        "frontend": "{{Package.Raxon.Ollama:Setup:install.frontend.get(options())}}",
+        "backend": "{{Package.Raxon.Ollama:Setup:install.backend.get(options())}}",
+        "directory": {
+          "application": "Application/{{$this.#parentNode.#parentNode.name}}/"
+        },
+        "source": {
+          "node": {
+            "extension" : "{{config('project.dir.node')}}Data/System.Server.Extension.json",
+            "content_type": "{{config('project.dir.node')}}Data/System.Server.ContentType.json"
+          },
+          "extension": "{{config('controller.dir.data')}}System.Server.Extension.json",
+          "content_type": "{{config('controller.dir.data')}}System.Server.ContentType.json"
+        },
+        "method": null,
+        "target": null,
+        "description": "Ollama layer for using A.I.",
+        "icon": "Application/{{$this.name}}/Icon/Icon.png",
+        "user": "{{Package.Raxon.Ollama:Setup:user.list(flags(), options(), $this)}}",
+        "extension": "{{Package.Raxon.Ollama:Setup:extension.list(flags(), options(), $this)}}"
+      }
+    ]
+  }
+}
