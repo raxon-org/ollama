@@ -1,0 +1,462 @@
+{{$options = options()}}
+<?php
+namespace Domain\{{php.namespace.host($options.backend.host)}}\Controller;
+
+use Doctrine\ORM\Exception\ORMException;
+use Package\Raxon\Account\Module\Permission;
+use Package\Raxon\Account\Module\User;
+
+use Raxon\App;
+use Raxon\Config;
+
+use Raxon\Module\Core;
+use Raxon\Module\Controller;
+
+use Raxon\Module\Dir;
+use Raxon\Module\File;
+
+use Raxon\Module\Response;
+
+use Raxon\Doctrine\Module\Database;
+
+use Raxon\Node\Module\Node;
+
+use Exception;
+
+use Raxon\Exception\AuthorizationException;
+use Raxon\Exception\LocateException;
+use Raxon\Exception\UrlEmptyException;
+use Raxon\Exception\UrlNotExistException;
+use Raxon\Exception\FileWriteException;
+use Raxon\Exception\ObjectException;
+
+class Ollama extends Controller {
+    const DIR = __DIR__ . DIRECTORY_SEPARATOR;
+    const NAME = 'Raxon.Ollama';
+
+    public static function role_for_node(App $object, $role){
+        $role_permissions = $role->permissions ?? [];
+        $permissions = [];
+        foreach($role_permissions as $permission){
+            $permissions[] = (object) [
+                'name' => $permission->name,
+                'class' => 'Account.Permission'
+            ];
+        }
+        $node_role = (object) [
+            'name' => $role->name,
+            'rank' => $role->rank,
+            'uuid' => Core::uuid(),
+            'permission' => $permissions,
+        ];
+        return $node_role;
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     * @throws ORMException
+     */
+    public static function generate(App $object){
+        try {
+            $role = Permission::controller(
+                $object,
+                Ollama::NAME,
+                __FUNCTION__,
+                $user
+            );
+            if($role){
+                $data = Core::object($object->request(), Core::OBJECT_JSON);
+                $object->request('entity.status', 'start');
+                $entity = $object->request('entity');                    
+                $endpoint = $object->request('entity.endpoint');                
+                if(
+                    str_contains($endpoint, '/generate') && 
+                    empty($object->request('entity.prompt'))
+                ){
+                    exit(0);
+                }
+                if(
+                    str_contains($endpoint, '/chat') && 
+                    empty($object->request('entity.messages'))
+                ){
+                    exit(0);
+                }
+                $date = microtime(true);
+                if(is_object($entity)){
+                    $entity->is = (object) [
+                        'created' => $date,
+                        'modified' => $date
+                    ];
+                }
+                $class = 'Raxon.Ollama.Input';
+                $node = new Node($object);                
+                $create = $node->create($class, $role, $entity, [
+                    'debug' => true,
+                ]);
+                /*
+                $dir = $object->config('ramdisk.url') .
+                    $object->config(Config::POSIX_ID) .
+                    $object->config('ds') .
+                    'Ollama' .
+                    $object->config('ds')
+                ;
+                $url = $dir . $create['node']->uuid . '.jsonl';
+                */
+
+                $response = new Response($create, Response::TYPE_JSON);
+                $response->status(200);
+                echo Response::output($object, $response);
+                exit(0);
+            }
+
+        } catch (Exception | FileWriteException | ObjectException | LocateException | UrlEmptyException | UrlNotExistException $exception){
+            return $exception;
+        }
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     * @throws ORMException
+     */
+    public static function queue(App $object){
+        try {
+            $role = Permission::controller(
+                $object,
+                Ollama::NAME,
+                __FUNCTION__,
+                $user
+            );
+            if($role){
+                $data = Core::object($object->request(), Core::OBJECT_JSON);
+                $object->request('entity.status', 'start');
+                $entity = $object->request('entity');
+                $class = 'Raxon.Ollama.Input';
+                $node = new Node($object);
+                $count = $node->count($class, $role, [
+                    'filter' => [
+                        'status' => [
+                            'start'
+                        ]
+                    ]
+                ]);
+                $response = new Response($count, Response::TYPE_JSON);
+                $response->status(200);
+                echo Response::output($object, $response);
+                exit(0);
+            }
+
+        } catch (Exception | FileWriteException | ObjectException | LocateException | UrlEmptyException | UrlNotExistException $exception){
+            return $exception;
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function sse(App $object){
+        $key = $object->request('user_key');
+        $uuid = $object->request('uuid');
+        $options = (object) [
+            'key' => $key,
+        ];
+        $user = User::get_by_key($object, $options);
+        if(!$user){
+            throw new Exception('Access denied...');
+        }
+        set_time_limit(2 * 60 * 60); // was 10 minutes, now 2 hour per response, codellama:70b can take a while
+        date_default_timezone_set("Europe/Amsterdam");
+        header("Cache-Control: no-cache");
+        header('Content-Encoding: none');
+        header("Content-Type: text/event-stream");
+        header("Connection: keep-alive");
+        header("Keep-Alive: timeout=30, max=7200");
+        header("Transfer-encoding: chunked");
+
+//        @ini_set('zlib.output_compression', 0);
+//        @ini_set('implicit_flush', 1);
+        Core::interactive();
+        flush();
+        echo ":" . str_repeat("a", 4096) . "\n";
+        echo "\n\n";
+        flush();
+        $counter = 0;
+        $id = 1;
+        $previous = false;
+        $is_first_run = false;
+        $timeout = 0;
+        $pointer = 0;
+        $class = 'Raxon.Ollama.Input';
+        $node = new Node($object);
+        $queue = $node->count($class, $node->role_system(), [
+            'filter' => [
+                'status'  => 'start'
+            ]
+        ]);
+        $is_outdated = false;
+        $instance = false;
+        $read = [];
+        while(true){
+            if($instance){
+                $object->config('ramdisk.url', $instance->config('ramdisk.url'));
+            }
+            $url = $object->config('ramdisk.url') .
+                $object->config(Config::POSIX_ID) .
+                $object->config('ds') .
+                'Ollama' .
+                $object->config('ds') .
+                $uuid .
+                $object->config('extension.jsonl')
+            ;
+            if(File::exist($url) === false && $is_outdated === false){
+                $is_outdated = true;
+                //config ramdisk.url might be outdated
+                echo ":" . str_repeat("a", 4096) . "\n";
+                echo "\n\n";
+                flush();
+                usleep(500 * 1000);
+                continue;
+            }
+            $data = false;
+            if(File::exist($url)){
+                $data = File::read($url);
+            }
+            $json_list = [];
+            if(!empty($data)){
+                $char_list = mb_str_split($data);
+                $is_single_quote = false;
+                $is_double_quote = false;
+                $line = '';
+                foreach($char_list as $nr => $char){
+                    $previous = $char_list[$nr - 1] ?? null;
+                    if(
+                        $char === '"' &&
+                        $previous !== '\\' &&
+                        $is_single_quote === false &&
+                        $is_double_quote === false
+                    ){
+                        $is_double_quote = true;
+                    }
+                    elseif(
+                        $char === '"' &&
+                        $previous !== '\\' &&
+                        $is_single_quote === false &&
+                        $is_double_quote === true
+                    ){
+                        $is_double_quote = false;
+                    }
+                    elseif(
+                        $char === '\'' &&
+                        $previous !== '\\' &&
+                        $is_single_quote === false &&
+                        $is_double_quote === false
+                    ){
+                        $is_single_quote = true;
+                    }
+                    elseif(
+                        $char === '\'' &&
+                        $previous !== '\\' &&
+                        $is_single_quote === true &&
+                        $is_double_quote === false
+                    ){
+                        $is_single_quote = false;
+                    }
+                    elseif(
+                        $char === PHP_EOL &&
+                        $is_single_quote === false &&
+                        $is_double_quote === false
+                    ){
+                        $json_list[] = $line . $char;
+                        $line = '';
+                        continue;
+                        /*
+                        $counter = 0;
+                        echo "id: $id\n";
+                        echo "event: ping\n";
+                        echo 'data: ' . $line;
+                        echo "\n\n";
+                        flush();
+                        $id++;
+                        */
+                    }
+                    $line .= $char;
+                }
+            }
+            $is_event = false;
+            if($json_list){
+                foreach($json_list as $json_nr => $line){
+                    if($json_nr < $pointer){
+                        continue;
+                    }
+                    $is_event = true;
+                    $counter = 0;
+                    if(array_key_exists('node', $read)){
+                        $line = str_replace('"done":false', '"done":false, "queue":' . $queue . ', "node": ' . Core::object($read['node'], Core::JSON_LINE) . ', "memory": "'. round(memory_get_usage(true) / 1024 / 1024, 2) . ' MB"', $line);
+                    } else {
+                        $line = str_replace('"done":false', '"done":false, "queue":' . $queue . ', "memory": "'. round(memory_get_usage(true) / 1024 / 1024, 2) . ' MB"', $line);
+                    }
+                    if(str_contains($line, '"done":true')){
+                        $queue = $node->count($class, $node->role_system(), [
+                            'filter' => [
+                                'status'  => 'start'
+                            ]
+                        ]);
+                        if(array_key_exists('node', $read)){
+                            $line = str_replace('"done":true', '"done":true, "queue":' . $queue . ', "node": ' . Core::object($read['node'], Core::JSON_LINE) . ', "memory": "'. round(memory_get_usage(true) / 1024 / 1024, 2) . ' MB"', $line);
+                        } else {
+                            $line = str_replace('"done":true', '"done":true, "queue":' . $queue . ', "memory": "'. round(memory_get_usage(true) / 1024 / 1024, 2) . ' MB"', $line);
+                        }
+                    }
+                    echo "id: $id\n";
+                    echo "event: ping\n";
+                    echo 'data: ' . $line;
+                    echo "\n\n";
+                    flush();
+                    $id++;
+                    $pointer++;
+                }
+            }
+            if($is_event === false){
+                usleep(500 * 1000);
+                $timeout = 3000; // 25 minutes till first response (big documents)
+                $counter++;
+                echo "id: $id\n";
+                echo "event: ping\n";
+                echo 'data: {"empty": "line", "counter": ' . $counter. ', "timeout": '. $timeout . ', "queue": ' .  $queue . ', "memory": "'. round(memory_get_usage(true) / 1024 / 1024, 2) . ' MB"}';
+                echo "\n\n";
+                flush();
+                $id++;
+            }
+            /*
+            if(!empty($previous)){
+                $explode = explode($previous, $data, 2);
+                if(array_key_exists(1, $explode)){
+                    $data = $explode[1];
+                    $data_data = explode(PHP_EOL, $data);
+                    foreach($data_data as $nr => $line){
+                        if(empty($line)){
+                            $timeout = 360; // 5 minutes till first response
+                            $counter++;
+                            echo "id: $id\n";
+                            echo "event: ping\n";
+                            echo 'data: {"empty": "line", "counter": ' . $counter. '}';
+                            echo "\n\n";
+                            flush();
+                            $id++;
+                        } else {
+                            $counter = 0;
+                            echo "id: $id\n";
+                            echo "event: ping\n";
+                            echo 'data: ' . $line;
+                            echo "\n\n";
+                            flush();
+                            $id++;
+                        }
+                    }
+                }
+            }
+            elseif($is_first_run === false) {
+                $data_data = explode(PHP_EOL, $data);
+                foreach($data_data as $nr => $line){
+                    if(empty($line)){
+                        $timeout = 360; // 5 minutes till first response
+                        $counter++;
+                        echo "id: $id\n";
+                        echo "event: ping\n";
+                        echo 'data: {"empty": "line", "counter": ' . $counter. '}';
+                        echo "\n\n";
+                        flush();
+                        $id++;
+                    } else {
+                        $counter = 0;
+                        echo "id: $id\n";
+                        echo "event: ping\n";
+                        echo 'data: ' . $line;
+                        echo "\n\n";
+                        flush();
+                        $id++;
+                    }
+
+                }
+                $is_first_run = true;
+            }
+            */
+//            echo ":" . str_repeat("a", 4096) . "\n";
+//            echo "\n\n";
+//            flush();
+//            ob_end_flush();
+//            sleep(1);
+            usleep(500 * 1000);
+            if($counter % 50 === 0 && $counter > 0){
+                $instance = App::instance();
+                $read = $node->read($class, $node->role_system(), [
+                    'uuid'  => $uuid,
+                ]);
+                $queue = $node->count($class, $node->role_system(), [
+                    'filter' => [
+                        'status'  => 'start'
+                    ]
+                ]);
+                if(is_array($read) && array_key_exists('node', $read)){
+                    if($read['node']->status === 'finish'){
+                        echo "id: $id\n";
+                        echo "event: ping\n";
+                        echo 'data: {"finish": "true", "counter": ' .
+                            $counter .
+                            ', "queue": ' . $queue .
+                            ', "memory": "'.
+                            round(memory_get_usage(true) / 1024 / 1024, 2) .
+                            ' MB", ' .
+                            substr(Core::object($read['node'], Core::JSON_LINE), 1, -1) .
+                            '}'
+                        ;
+                        echo "\n\n";
+                        flush();
+                        break;
+                    }
+                }
+            }
+            if(
+                ($counter / 2) >= $timeout &&
+                $timeout > 0
+            ){
+                echo "id: $id\n";
+                echo "event: ping\n";
+                echo 'data: {"finish": "true", "counter": ' . $counter. ', "queue": ' . $queue . '}';
+                echo "\n\n";
+                flush();
+                break;
+            }
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function tool(App $object){
+        switch($object->request('function')){
+            case 'directory_list':
+                $dir = new Dir();
+                $list = $dir->read($object->request('arguments.directory'));
+                return new Response($list, Response::TYPE_JSON);
+            default:
+                throw new Exception('Unknown function: ' . $object->request('function'));
+        }
+    }
+
+    public static function abort(App $object){
+        $uuid = $object->request('uuid');
+        $dir = $object->config('ramdisk.url') . '33/Ollama/';
+        Dir::create($dir, Dir::CHMOD);
+        File::touch($dir . $uuid . '.abort');
+        /*
+        $command = Core::binary($object) . ' raxon/task create -command[]="app raxon/ollama kill"';
+        exec($command, $output, $code);
+        echo implode(PHP_EOL, $output);
+        */
+        /*
+         * app raxon/task create -execute?[]=app raxon/ollama stop && sleep 1
+         * app raxon/task create -execute?[]=app raxon/ollama stop && sleep 1
+         * app raxon/task create -execute?[]=app raxon/ollama start
+         */
+    }
+}

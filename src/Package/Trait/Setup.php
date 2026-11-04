@@ -1,23 +1,33 @@
 <?php
 namespace Package\Raxon\Ollama\Trait;
 
-use Raxon\Module\Core;
-use Raxon\Module\Dir;
+use Exception;
+use Package\Raxon\Basic\Trait\Install;
+use Raxon\Exception\ObjectException;
+use Raxon\Module\Link;
 
 trait Setup {
 
+    use Install;
+
+    /**
+     * @throws ObjectException
+     * @throws Exception
+     */
     public function install_ollama(object $flags, object $options): void
     {
-        /*
-        if(!Dir::exist('/root/.ollama/')){
-            Core::interactive();
-            echo 'Downloading Ollama...' . PHP_EOL;
-            $command = 'curl -fsSL https://ollama.com/install.sh | sh';
-            exec($command, $output);
-            echo implode(PHP_EOL, $output);
-//            $this->pull_model($flags, $options);
+        $application_list = $this->install_system_application(
+            $flags,
+            $options,
+        );
+        ddd($application_list);
+        $object = $this->object();
+        foreach($application_list as $application){
+            $this->install_api($options, $application);
         }
-        */
+        $command = Core::binary($object) . ' raxon/ollama reset';
+        exec($command, $output);
+        echo implode(PHP_EOL, $output);
     }
 
     public function pull_model(object $flags, object $options): void

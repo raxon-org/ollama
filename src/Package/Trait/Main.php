@@ -2,6 +2,7 @@
 namespace Package\Raxon\Ollama\Trait;
 
 use Raxon\App;
+use Raxon\Exception\DirectoryCreateException;
 use Raxon\Exception\FileAppendException;
 use Raxon\Exception\FileWriteException;
 use Raxon\Module\Core;
@@ -167,15 +168,19 @@ trait Main {
         exit(0);
     }
 
+    /**
+     * @throws DirectoryCreateException
+     */
     public function reset($flags, $options): void {
         $dir_ollama = '/root/.ollama';
         $dir_target = '/mnt/Disk2/Media/Ollama/models';
         $dir_destination = '/root/.ollama/models';
 
+        if(!File::exist($dir_ollama)){
+            Dir::create('/root/.ollama', Dir::CHMOD);
+        }
         if(File::exist($dir_ollama)){
-            if(!File::exist($dir_target)){
-                Dir::create('/root/.ollama', Dir::CHMOD);
-            }
+
             if(!File::exist($dir_destination)){
                 File::link($dir_target, $dir_destination);
             }
