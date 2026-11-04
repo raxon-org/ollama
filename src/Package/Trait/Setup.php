@@ -20,7 +20,6 @@ trait Setup {
             $flags,
             $options,
         );
-        ddd($application_list);
         $object = $this->object();
         foreach($application_list as $application){
             $this->install_api($options, $application);
