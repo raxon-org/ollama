@@ -434,6 +434,16 @@ class Ollama extends Controller {
      */
     public static function tool(App $object){
         switch($object->request('function')){
+            case 'bash':
+                $command = $object->request('arguments.command');
+                $output = [];
+                if(substr(trim($command), 0, 2) !== 'rm'){
+                    $command = 'bash -c "' . $command . '"';
+                    exec($command, $output, $code);
+                    return new Response($output, Response::TYPE_JSON);
+                }
+                throw new Exception('Function not allowed: ' . $object->request('function'));
+                break;
             case 'directory_list':
                 $dir = new Dir();
                 $list = $dir->read($object->request('arguments.directory'));
